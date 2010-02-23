@@ -1,0 +1,16 @@
+.git
+.svn
+_build
+blib
+sharedir
+^Build$
+^Build.bat$
+^MYMETA.yml$
+\.tmp$
+\.bak$
+\.zip$
+\.gz$
+\.a$
+\.o$
+\.exe$
+\.obj$
