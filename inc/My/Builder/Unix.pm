@@ -14,7 +14,8 @@ sub build_binaries {
 
   chdir "src/build/gmake";
   print "Gonna cd build/gmake & make install ...\n";
-  my $cmd = $self->get_make . " install runinst_prefix=$prefixdir devinst_prefix=$prefixdir CC=$Config{cc}";
+  my $cmd = $self->get_make . " installhdrs installib installexes ".
+                              " runinst_prefix=$prefixdir devinst_prefix=$prefixdir CC=$Config{cc}";
   print "[cmd: $cmd]\n";
   $self->do_system($cmd) or die "###ERROR### [$?] during make ... ";
   chdir $self->base_dir();
