@@ -13,19 +13,19 @@ Alien::Libtidyp - building and using libtidyp binaries
 
 =head1 VERSION
 
-Version 0.01
+Version 1.0
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '1.0';
 
 =head1 SYNOPSIS
 
-Alien::Libtidyp during its installation:
+Alien::Libtidyp during its installation does the following:
 
 =over
 
-=item * Build 'libtidyp' Libtidyp binaries from source codes (if possible on your system).
+=item * Builds 'libtidyp' binaries from source codes.
 
 =item * Installs binaries into so called 'share' directory of Alien::Libtidyp distribution
 
@@ -54,7 +54,7 @@ This function is the main public interface to this module.
 
     Alien::Libtidyp->config('LIBS');
 
-Returns a string like: '-L/path/to/libtidy/dir/lib -llibtidyp'
+Returns a string like: '-L/path/to/libtidy/dir/lib -ltidyp'
 
     Alien::Libtidyp->config('INC');
 
@@ -96,4 +96,3 @@ sub config
 }
 
 1;
-

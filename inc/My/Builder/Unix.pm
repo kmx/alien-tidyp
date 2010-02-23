@@ -5,6 +5,7 @@ use warnings;
 use base 'My::Builder';
 
 use File::Spec::Functions qw(catdir catfile rel2abs);
+use File::Spec qw(devnull);
 use Config;
 
 sub build_binaries {
@@ -23,6 +24,13 @@ sub build_binaries {
 
 sub get_make {
   my ($self) = @_;
+  my $devnull = File::Spec->devnull();
+  my @try = ( $Config{gmake}, 'gmake', 'make');  
+  foreach my $name ( @try ) {
+    next unless $name;
+    return $name if `$name --help 2> $devnull`;    
+  }
   return 'make';
 }
+
 1;
