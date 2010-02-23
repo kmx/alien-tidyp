@@ -7,13 +7,13 @@ VERSION
 SYNOPSIS
     Alien::Libtidyp during its installation does the following:
 
-    *   Builds 'libtidyp' binaries from source codes.
+    *   Builds 'libtidyp' binaries from source codes
 
-    *   Installs binaries into so called 'share' directory of
-        Alien::Libtidyp distribution
+    *   Installs binaries into 'share' directory of Alien::Libtidyp
+        distribution
 
-    Later you can use Alien::Libtidyp in your module that needs to link
-    agains Libtidyp and/or related libraries like this:
+    Later you can use Alien::Libtidyp in your module that needs to link with
+    libtidyp like this:
 
         # Sample Makefile.pl
         use ExtUtils::MakeMaker;

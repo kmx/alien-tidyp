@@ -25,14 +25,14 @@ Alien::Libtidyp during its installation does the following:
 
 =over
 
-=item * Builds 'libtidyp' binaries from source codes.
+=item * Builds 'libtidyp' binaries from source codes
 
-=item * Installs binaries into so called 'share' directory of Alien::Libtidyp distribution
+=item * Installs binaries into 'share' directory of Alien::Libtidyp distribution
 
 =back
 
-Later you can use Alien::Libtidyp in your module that needs to link agains Libtidyp
-and/or related libraries like this:
+Later you can use Alien::Libtidyp in your module that needs to link with libtidyp
+like this:
 
     # Sample Makefile.pl
     use ExtUtils::MakeMaker;
