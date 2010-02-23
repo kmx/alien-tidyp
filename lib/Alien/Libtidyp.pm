@@ -3,9 +3,13 @@ package Alien::Libtidyp;
 use warnings;
 use strict;
 
+use Alien::Libtidyp::ConfigData;
+use File::ShareDir qw(dist_dir);
+use File::Spec::Functions qw(catdir catfile rel2abs);
+
 =head1 NAME
 
-Alien::Libtidyp - The great new Alien::Libtidyp!
+Alien::Libtidyp - building and using libtidyp binaries
 
 =head1 VERSION
 
@@ -15,38 +19,46 @@ Version 0.01
 
 our $VERSION = '0.01';
 
-
 =head1 SYNOPSIS
 
-Quick summary of what the module does.
+Alien::Libtidyp during its installation:
 
-Perhaps a little code snippet.
+=over
 
+=item * Build 'libtidyp' Libtidyp binaries from source codes (if possible on your system).
+
+=item * Installs binaries into so called 'share' directory of Alien::Libtidyp distribution
+
+=back
+
+Later you can use Alien::Libtidyp in your module that needs to link agains Libtidyp
+and/or related libraries like this:
+
+    # Sample Makefile.pl
+    use ExtUtils::MakeMaker;
     use Alien::Libtidyp;
 
-    my $foo = Alien::Libtidyp->new();
-    ...
+    WriteMakefile(
+      NAME         => 'Any::Libtidyp::Module',
+      VERSION_FROM => 'lib/Any/Libtidyp/Module.pm',
+      LIBS         => Alien::Libtidyp->config('LIBS'),
+      INC          => Alien::Libtidyp->config('INC'),
+      # + additional params
+    );
 
-=head1 EXPORT
+=head1 METHODS
 
-A list of functions that can be exported.  You can delete this section
-if you don't export anything, such as for a purely object-oriented module.
+=head2 config()
 
-=head1 SUBROUTINES/METHODS
+This function is the main public interface to this module.
 
-=head2 function1
+    Alien::Libtidyp->config('LIBS');
 
-=cut
+Returns a string like: '-L/path/to/libtidy/dir/lib -llibtidyp'
 
-sub function1 {
-}
+    Alien::Libtidyp->config('INC');
 
-=head2 function2
-
-=cut
-
-sub function2 {
-}
+Returns a string like: '-I/path/to/libtidy/dir/include'
 
 =head1 AUTHOR
 
@@ -55,44 +67,7 @@ KMX, C<< <kmx at cpan.org> >>
 =head1 BUGS
 
 Please report any bugs or feature requests to C<bug-alien-libtidyp at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Alien-Libtidyp>.  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
-
-
-
-
-=head1 SUPPORT
-
-You can find documentation for this module with the perldoc command.
-
-    perldoc Alien::Libtidyp
-
-
-You can also look for information at:
-
-=over 4
-
-=item * RT: CPAN's request tracker
-
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Alien-Libtidyp>
-
-=item * AnnoCPAN: Annotated CPAN documentation
-
-L<http://annocpan.org/dist/Alien-Libtidyp>
-
-=item * CPAN Ratings
-
-L<http://cpanratings.perl.org/d/Alien-Libtidyp>
-
-=item * Search CPAN
-
-L<http://search.cpan.org/dist/Alien-Libtidyp/>
-
-=back
-
-
-=head1 ACKNOWLEDGEMENTS
-
+the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Alien-Libtidyp>. 
 
 =head1 LICENSE AND COPYRIGHT
 
@@ -104,7 +79,21 @@ by the Free Software Foundation; or the Artistic License.
 
 See http://dev.perl.org/licenses/ for more information.
 
-
 =cut
 
-1; # End of Alien::Libtidyp
+sub config
+{
+  my ($package, $param) = @_;
+  my $share_dir = dist_dir('Alien-Libtidyp');
+  my $subdir = Alien::Libtidyp::ConfigData->config('share_subdir');
+  return unless $subdir;
+  my $real_prefix = catdir($share_dir, $subdir);
+  return unless ($param =~ /[a-z0-9_]*/i);
+  my $val = Alien::Libtidyp::ConfigData->config('config')->{$param};
+  return unless $val;  
+  $val =~ s/\@PrEfIx\@/$real_prefix/g; # handle @PrEfIx@ replacement
+  return $val;
+}
+
+1;
+

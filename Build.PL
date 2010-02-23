@@ -1,17 +1,32 @@
 use strict;
 use warnings;
-use Module::Build;
 
-my $builder = Module::Build->new(
-    module_name         => 'Alien::Libtidyp',
-    license             => 'perl',
-    dist_author         => q{KMX <kmx@cpan.org>},
-    dist_version_from   => 'lib/Alien/Libtidyp.pm',
-    build_requires => {
-        'Test::More' => 0,
-    },
-    add_to_cleanup      => [ 'Alien-Libtidyp-*' ],
-    create_makefile_pl => 'traditional',
+use lib "inc";
+
+my %platforms =(
+  MSWin32 => 'Windows',
+  linux   => 'Unix',
+  cygwin  => 'Unix',
+  freebsd => 'Unix',
+);
+my $package = 'My::Builder::' . ($platforms{$^O} || 'Unix');
+print "Gonna use '$package' class ...\n";
+eval "require $package" or die "Require '$package' failed: $@\n";
+
+my $builder = $package->new(
+  module_name        => 'Alien::Libtidyp',
+  all_from           => 'lib/Alien/SDL.pm',
+  requires => {
+    'File::ShareDir'    => 0,
+    'File::Spec'        => 0,
+  },
+  build_requires => {
+    'Test::More'        => 0,
+    'File::Spec'        => 0,
+    'ExtUtils::Command' => 0,
+  },
+  share_dir          => 'sharedir',
+  create_makefile_pl => 'traditional',
 );
 
 $builder->create_build_script();
