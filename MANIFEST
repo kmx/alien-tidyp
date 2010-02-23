@@ -1,6 +1,5 @@
 Build.PL
 Changes
-e.bat
 ignore.txt
 inc/My/Builder.pm
 inc/My/Builder/Unix.pm
