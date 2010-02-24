@@ -39,6 +39,10 @@ METHODS
 
     Returns a string like: '-I/path/to/libtidy/dir/include'
 
+        Alien::Libtidyp->config('PREFIX');
+
+    Returns a string like: '/path/to/libtidy/dir'
+
 AUTHOR
     KMX, "<kmx at cpan.org>"
 

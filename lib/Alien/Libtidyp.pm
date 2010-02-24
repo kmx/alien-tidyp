@@ -60,6 +60,10 @@ Returns a string like: '-L/path/to/libtidy/dir/lib -ltidyp'
 
 Returns a string like: '-I/path/to/libtidy/dir/include'
 
+    Alien::Libtidyp->config('PREFIX');
+
+Returns a string like: '/path/to/libtidy/dir'
+
 =head1 AUTHOR
 
 KMX, C<< <kmx at cpan.org> >>
@@ -94,5 +98,6 @@ sub config
   $val =~ s/\@PrEfIx\@/$real_prefix/g; # handle @PrEfIx@ replacement
   return $val;
 }
+
 
 1;
