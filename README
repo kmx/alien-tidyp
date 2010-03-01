@@ -6,8 +6,7 @@ VERSION
     patches.
 
     Specifically this commit:
-    <http://github.com/petdance/tidyp/commit/3b52d11248b69464ad399ed7faa51c2
-    3af61ac38>
+    <http://github.com/petdance/tidyp/commit/3b52d11248b69464ad39>
 
 SYNOPSIS
     Alien::Tidyp during its installation does the following:

@@ -19,7 +19,7 @@ our $VERSION = '0.99.3';
 
 Version 0.99.3 of Alien::Tidyp uses I<tidyp> sources v0.99 + some patches.
 
-Specifically this commit: L<http://github.com/petdance/tidyp/commit/3b52d11248b69464ad399ed7faa51c23af61ac38>
+Specifically this commit: L<http://github.com/petdance/tidyp/commit/3b52d11248b69464ad39>
 
 =head1 SYNOPSIS
 
