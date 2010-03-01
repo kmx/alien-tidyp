@@ -13,13 +13,13 @@ sub ACTION_code {
 
   unless (-e 'build_done') {
     # we are deriving the subdir name from VERSION as we want to prevent
-    # troubles when user reinstalls the newer version of Alien::Libtidyp
-    my $build_out = catfile('sharedir', $self->{properties}->{dist_version});    
+    # troubles when user reinstalls the newer version of Alien::Tidyp
+    my $build_out = catfile('sharedir', $self->{properties}->{dist_version});
     $self->add_to_cleanup($build_out);
     $self->add_to_cleanup('build_done');
     # go for build
     $self->build_binaries($build_out);
-    # store info about build into future Alien::Libtidyp::ConfigData
+    # store info about build into future Alien::Tidyp::ConfigData
     $self->config_data('share_subdir', $self->{properties}->{dist_version});
     $self->config_data('config', { PREFIX => '@PrEfIx@',
                                    LIBS   => '-L@PrEfIx@/lib -ltidyp',
@@ -30,6 +30,12 @@ sub ACTION_code {
     ExtUtils::Command::touch();
   }
   $self->SUPER::ACTION_code;
+}
+
+sub ACTION_clean {
+  my $self = shift;
+  $self->make_clean;
+  $self->SUPER::ACTION_clean;
 }
 
 sub build_binaries {
