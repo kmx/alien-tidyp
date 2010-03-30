@@ -13,13 +13,13 @@ Alien::Tidyp - building and using tidyp library - L<http://www.tidyp.com>
 
 =cut
 
-our $VERSION = '0.99.3';
+our $VERSION = '0.99.4';
 
 =head1 VERSION
 
-Version 0.99.3 of Alien::Tidyp uses I<tidyp> sources v0.99 + some patches.
+Version 0.99.4 of Alien::Tidyp uses I<tidyp> sources v0.99 + some patches.
 
-Specifically this commit: L<http://github.com/petdance/tidyp/commit/3b52d11248b69464ad39>
+Specifically this commit: L<http://github.com/petdance/tidyp/commit/749825bc9>
 
 =head1 SYNOPSIS
 
