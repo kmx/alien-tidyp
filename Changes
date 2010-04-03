@@ -1,4 +1,10 @@
 Revision history for Alien-Tidyp
 
+NEXT
+	- fixing FreeBSD build failures
+
+0.99.4	02/04/2010
+	- The firts CPAN release
+
 0.99.3	01/03/2010
 	- Initial version by kmx

@@ -14,8 +14,10 @@ sub build_binaries {
 
   chdir "src/build/gmake";
   print "Gonna cd build/gmake & make install ...\n";
+  my $qcc = $self->quote_literal($Config{cc});
+  my $qprefixdir = $self->quote_literal($prefixdir);
   my $cmd = $self->get_make . " installhdrs installib installexes ".
-                              " runinst_prefix=$prefixdir devinst_prefix=$prefixdir CC=$Config{cc}";
+                              " runinst_prefix=$qprefixdir devinst_prefix=$qprefixdir CC=$qcc";
   print "[cmd: $cmd]\n";
   $self->do_system($cmd) or die "###ERROR### [$?] during make ... ";
   chdir $self->base_dir();
@@ -45,6 +47,12 @@ sub get_make {
     return $name if `$name --help 2> $devnull`;
   }
   return 'make';
+}
+
+sub quote_literal {
+    my ($self, $txt) = @_;
+    $txt =~ s|'|'\\''|g;
+    return "'$txt'";
 }
 
 1;

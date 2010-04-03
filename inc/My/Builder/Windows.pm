@@ -11,10 +11,13 @@ use Config;
 sub build_binaries {
   my ($self, $build_out) = @_;
   my $prefixdir = rel2abs($build_out);
+  my $qcc = $self->quote_literal($Config{cc});
+  my $qprefixdir = $self->quote_literal($prefixdir);
+  my $qperl = $self->quote_literal($^X);
 
   chdir "src";
   print "Gonna make -f build/win32/Makefile.mingw install ...\n";
-  my $cmd = $self->get_make . " -f build/win32/Makefile.mingw PERL=$^X PREFIX=$prefixdir CC=$Config{cc} install";
+  my $cmd = $self->get_make . " -f build/win32/Makefile.mingw PERL=$qperl PREFIX=$qprefixdir CC=$qcc install";
   print "[cmd: $cmd]\n";
   $self->do_system($cmd) or die "###ERROR### [$?] during make ... ";
   chdir $self->base_dir();
@@ -27,7 +30,8 @@ sub make_clean {
 
   chdir "src";
   print "Gonna make -f build/win32/Makefile.mingw clean\n";
-  my $cmd = $self->get_make . " -f build/win32/Makefile.mingw PERL=$^X clean";
+  my $qperl = $self->quote_literal($^X);
+  my $cmd = $self->get_make . " -f build/win32/Makefile.mingw PERL=$qperl clean";
   print "[cmd: $cmd]\n";
   $self->do_system($cmd) or warn "###WARN### [$?] during make ... ";
   chdir $self->base_dir();
@@ -44,6 +48,12 @@ sub get_make {
     return $name if `$name --help 2> $devnull`;
   }
   return 'make';
+}
+
+sub quote_literal {
+    my ($self, $txt) = @_;
+    $txt =~ s|"|\\"|g;
+    return qq("$txt");
 }
 
 1;
