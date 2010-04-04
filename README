@@ -2,7 +2,7 @@ NAME
     Alien::Tidyp - building and using tidyp library - <http://www.tidyp.com>
 
 VERSION
-    Version 0.99.4 of Alien::Tidyp uses *tidyp* sources v0.99 + some
+    Version 0.99.5 of Alien::Tidyp uses *tidyp* sources v0.99 + some
     patches.
 
     Specifically this commit:
@@ -59,8 +59,12 @@ BUGS
     <http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Alien-Tidyp>.
 
 LICENSE AND COPYRIGHT
+    Please notice that the source code of tidyp library embedded in
+    Alien::SDL (in 'src' subdirectory) has a different license than module
+    itself.
+
   Alien::Tidyp perl module
-    Copyright 2010 KMX.
+    Copyright (c) 2010 KMX.
 
     This program is free software; you can redistribute it and/or modify it
     under the terms of either: the GNU General Public License as published
@@ -68,7 +72,7 @@ LICENSE AND COPYRIGHT
 
     See http://dev.perl.org/licenses/ for more information.
 
-  Source code of tidyp library embedded in Alien::SDL
+  Source code of tidyp library
     Copyright (c) 1998-2003 World Wide Web Consortium (Massachusetts
     Institute of Technology, European Research Consortium for Informatics
     and Mathematics, Keio University). All Rights Reserved.
@@ -89,10 +93,13 @@ LICENSE AND COPYRIGHT
     source code, or portions hereof, documentation and executables, for any
     purpose, without fee, subject to the following restrictions:
 
-    1. The origin of this source code must not be misrepresented. 2. Altered
-    versions must be plainly marked as such and must not be misrepresented
-    as being the original source. 3. This Copyright notice may not be
-    removed or altered from any source or altered source distribution.
+    1. The origin of this source code must not be misrepresented.
+
+    2. Altered versions must be plainly marked as such and must not be
+    misrepresented as being the original source.
+
+    3. This Copyright notice may not be removed or altered from any source
+    or altered source distribution.
 
     The copyright holders and contributing author(s) specifically permit,
     without fee, and encourage the use of this source code as a component
