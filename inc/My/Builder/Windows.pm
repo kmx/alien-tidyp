@@ -11,15 +11,16 @@ use Config;
 sub build_binaries {
   my ($self, $build_out) = @_;
   my $prefixdir = rel2abs($build_out);
-  my $qcc = $self->quote_literal($Config{cc});
-  my $qprefixdir = $self->quote_literal($prefixdir);
-  my $qperl = $self->quote_literal($^X);
+  my $perl = $^X;
+  # for GNU make on MS Windows it is safer to convert \ to /
+  $perl =~ s|\\|/|g;
+  $prefixdir =~ s|\\|/|g;
 
   chdir "src";
   print "Gonna make -f build/win32/Makefile.mingw install ...\n";
-  my $cmd = $self->get_make . " -f build/win32/Makefile.mingw PERL=$qperl PREFIX=$qprefixdir CC=$qcc install";
-  print "[cmd: $cmd]\n";
-  $self->do_system($cmd) or die "###ERROR### [$?] during make ... ";
+  my @cmd = ( $self->get_make, '-f', 'build/win32/Makefile.mingw', "PERL=$perl", "PREFIX=$prefixdir", "CC=$Config{cc}", "install" );
+  print "[cmd: ".join(' ',@cmd)."]\n";
+  $self->do_system(@cmd) or die "###ERROR### [$?] during make ... ";
   chdir $self->base_dir();
 
   return 1;
@@ -27,13 +28,15 @@ sub build_binaries {
 
 sub make_clean {
   my ($self) = @_;
+  my $perl = $^X;
+  # for GNU make on MS Windows it is safer to convert \ to /
+  $perl =~ s|\\|/|g;
 
   chdir "src";
   print "Gonna make -f build/win32/Makefile.mingw clean\n";
-  my $qperl = $self->quote_literal($^X);
-  my $cmd = $self->get_make . " -f build/win32/Makefile.mingw PERL=$qperl clean";
-  print "[cmd: $cmd]\n";
-  $self->do_system($cmd) or warn "###WARN### [$?] during make ... ";
+  my @cmd = ($self->get_make, '-f', 'build/win32/Makefile.mingw', "PERL=$perl", 'clean');
+  print "[cmd: ".join(' ',@cmd)."]\n";
+  $self->do_system(@cmd) or warn "###WARN### [$?] during make ... ";
   chdir $self->base_dir();
 
   return 1;

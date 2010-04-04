@@ -14,12 +14,10 @@ sub build_binaries {
 
   chdir "src/build/gmake";
   print "Gonna cd build/gmake & make install ...\n";
-  my $qcc = $self->quote_literal($Config{cc});
-  my $qprefixdir = $self->quote_literal($prefixdir);
-  my $cmd = $self->get_make . " installhdrs installib installexes ".
-                              " runinst_prefix=$qprefixdir devinst_prefix=$qprefixdir CC=$qcc";
-  print "[cmd: $cmd]\n";
-  $self->do_system($cmd) or die "###ERROR### [$?] during make ... ";
+  my @cmd = ($self->get_make, 'installhdrs', 'installib', 'installexes',
+                              "runinst_prefix=$prefixdir", "devinst_prefix=$prefixdir", "CC=$Config{cc}");
+  print "[cmd: ".join(' ',@cmd)."]\n";
+  $self->do_system(@cmd) or die "###ERROR### [$?] during make ... ";
   chdir $self->base_dir();
 
   return 1;
@@ -30,9 +28,9 @@ sub make_clean {
 
   chdir "src/build/gmake";
   print "Gonna cd build/gmake & make clean\n";
-  my $cmd = $self->get_make . " clean";
-  print "[cmd: $cmd]\n";
-  $self->do_system($cmd) or warn "###WARN### [$?] during make ... ";
+  my @cmd = ($self->get_make, 'clean');
+  print "[cmd: ".join(' ',@cmd)."]\n";
+  $self->do_system(@cmd) or warn "###WARN### [$?] during make ... ";
   chdir $self->base_dir();
 
   return 1;

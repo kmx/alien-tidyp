@@ -79,13 +79,54 @@ the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Alien-Tidy
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2010 KMX.
+Please notice that the source code of tidyp library embedded in Alien::SDL
+(in 'src' subdirectory) has a different license than module itself.
+
+=head2 Alien::Tidyp perl module
+
+Copyright (c) 2010 KMX.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of either: the GNU General Public License as published
 by the Free Software Foundation; or the Artistic License.
 
 See http://dev.perl.org/licenses/ for more information.
+
+=head2 Source code of tidyp library
+
+Copyright (c) 1998-2003 World Wide Web Consortium
+(Massachusetts Institute of Technology, European Research
+Consortium for Informatics and Mathematics, Keio University).
+All Rights Reserved.
+
+This software and documentation is provided "as is," and
+the copyright holders and contributing author(s) make no
+representations or warranties, express or implied, including
+but not limited to, warranties of merchantability or fitness
+for any particular purpose or that the use of the software or
+documentation will not infringe any third party patents,
+copyrights, trademarks or other rights.
+
+The copyright holders and contributing author(s) will not be held
+liable for any direct, indirect, special or consequential damages
+arising out of any use of the software or documentation, even if
+advised of the possibility of such damage.
+
+Permission is hereby granted to use, copy, modify, and distribute
+this source code, or portions hereof, documentation and executables,
+for any purpose, without fee, subject to the following restrictions:
+
+1. The origin of this source code must not be misrepresented.
+
+2. Altered versions must be plainly marked as such and must not be misrepresented as being the original source.
+
+3. This Copyright notice may not be removed or altered from any  source or altered source distribution.
+
+The copyright holders and contributing author(s) specifically
+permit, without fee, and encourage the use of this source code
+as a component for supporting the Hypertext Markup Language in
+commercial products. If you use this source code in a product,
+acknowledgment is not required but would be appreciated.
 
 =cut
 

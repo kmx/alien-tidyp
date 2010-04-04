@@ -1,7 +1,9 @@
 Revision history for Alien-Tidyp
 
 NEXT
-	- fixing FreeBSD build failures
+	- Fixing FreeBSD CPAN tester failures
+	- Fixing Win32 CPAN tester failures
+	- Quoting tidyp license
 
 0.99.4	02/04/2010
 	- The firts CPAN release
