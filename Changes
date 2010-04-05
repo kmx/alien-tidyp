@@ -1,5 +1,9 @@
 Revision history for Alien-Tidyp
 
+NEXT
+	- Better GNU make detection (solaris, netbsd CPAN tester failures)
+	- Fix for no_index
+
 0.99.5	04/04/2010
 	- Fixing FreeBSD CPAN tester failures
 	- Fixing Win32 CPAN tester failures
