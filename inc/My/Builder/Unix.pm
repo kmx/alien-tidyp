@@ -39,11 +39,24 @@ sub make_clean {
 sub get_make {
   my ($self) = @_;
   my $devnull = File::Spec->devnull();
-  my @try = ( $Config{gmake}, 'gmake', 'make');
+  my @try = ($Config{gmake}, 'gmake', 'make', $Config{make});
+  my %tested;
+  print "Gonna detect GNU make:\n";
+  print "- \$Config{gmake} = $Config{gmake}\n";
+  print "- \$Config{make} = $Config{make}\n";
   foreach my $name ( @try ) {
     next unless $name;
-    return $name if `$name --help 2> $devnull`;
+    next if $tested{$name};
+    $tested{$name} = 1;
+    print "- testing: '$name'\n";
+    my $ver = `$name --version 2> $devnull`;
+    print "$ver";
+    if ($ver =~ /GNU Make/i) {
+      print "- found: '$name'\n";
+      return $name
+    }
   }
+  print "- fallback to: 'make'\n";
   return 'make';
 }
 
