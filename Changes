@@ -1,6 +1,6 @@
 Revision history for Alien-Tidyp
 
-NEXT
+0.99.6	06/04/2010
 	- Better GNU make detection (solaris, netbsd CPAN tester failures)
 	- Fix for no_index
 
