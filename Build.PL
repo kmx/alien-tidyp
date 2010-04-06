@@ -18,7 +18,7 @@ my $builder = $package->new(
   dist_version_from  => 'lib/Alien/Tidyp.pm',
   dist_author        => 'KMX, kmx@cpan.org',
   license            => 'perl',
-  no_index           => 'src', # do not index tidyp sources
+  no_index           => { directory => [ 'src' ] }, # do not index tidyp sources
   requires => {
     'File::ShareDir'    => 0,
     'File::Spec'        => 0,

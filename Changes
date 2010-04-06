@@ -1,5 +1,8 @@
 Revision history for Alien-Tidyp
 
+NEXT
+	- Fix for no_index (another try)
+
 0.99.6	06/04/2010
 	- Better GNU make detection (solaris, netbsd CPAN tester failures)
 	- Fix for no_index
@@ -11,7 +14,7 @@ Revision history for Alien-Tidyp
 	- Quoting tidyp license
 
 0.99.4	02/04/2010
-	- The firts CPAN release
+	- The first CPAN release
 
 0.99.3	01/03/2010
 	- Initial version by kmx
