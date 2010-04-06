@@ -5,6 +5,8 @@ blib
 ^ignore.txt$
 ^Build$
 ^Build.bat$
+^build_done$
+sharedir/.+/
 ^MANIFEST.SKIP$
 ^tmp
 \.tmp$
