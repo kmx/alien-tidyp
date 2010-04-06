@@ -60,7 +60,7 @@ BUGS
 
 LICENSE AND COPYRIGHT
     Please notice that the source code of tidyp library embedded in
-    Alien::SDL (in 'src' subdirectory) has a different license than module
+    Alien::Tidyp (in 'src' subdirectory) has a different license than module
     itself.
 
   Alien::Tidyp perl module

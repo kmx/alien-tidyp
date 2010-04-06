@@ -79,7 +79,7 @@ the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Alien-Tidy
 
 =head1 LICENSE AND COPYRIGHT
 
-Please notice that the source code of tidyp library embedded in Alien::SDL
+Please notice that the source code of tidyp library embedded in Alien::Tidyp
 (in 'src' subdirectory) has a different license than module itself.
 
 =head2 Alien::Tidyp perl module
