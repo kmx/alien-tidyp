@@ -1,7 +1,8 @@
 Revision history for Alien-Tidyp
 
-NEXT
+0.99.7
 	- Fix for no_index (another try)
+	- Use gmake as a fallback on solaris
 
 0.99.6	06/04/2010
 	- Better GNU make detection (solaris, netbsd CPAN tester failures)

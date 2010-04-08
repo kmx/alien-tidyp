@@ -49,15 +49,18 @@ sub get_make {
     next if $tested{$name};
     $tested{$name} = 1;
     print "- testing: '$name'\n";
-    my $ver = `$name --version 2> $devnull`;
-    print "$ver";
+    my $ver = `$name -v 2> $devnull`;
+    my $rv = system("$name -v > $devnull 2>&1");
+    print "  rv=$rv\n$ver";
     if ($ver =~ /GNU Make/i) {
       print "- found: '$name'\n";
       return $name
     }
   }
-  print "- fallback to: 'make'\n";
-  return 'make';
+  warn "###WARN### GNU make autodetection failed\n";
+  my $fallback = ($^O eq 'solaris') ? 'gmake' : 'make';
+  print "- fallback to: '$fallback'\n";
+  return $fallback;
 }
 
 sub quote_literal {

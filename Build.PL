@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use lib "inc";
+use lib 'inc';
 
 my %platforms =(
   MSWin32 => 'Windows',

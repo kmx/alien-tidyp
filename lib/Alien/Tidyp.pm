@@ -13,11 +13,11 @@ Alien::Tidyp - Build and make available tidyp library - L<http://www.tidyp.com>
 
 =cut
 
-our $VERSION = '0.99.6';
+our $VERSION = '0.99.7';
 
 =head1 VERSION
 
-Version 0.99.6 of Alien::Tidyp uses I<tidyp> sources v0.99 + some patches.
+Version 0.99.7 of Alien::Tidyp uses I<tidyp> sources v0.99 + some patches.
 
 Specifically this commit: L<http://github.com/petdance/tidyp/commit/749825bc9>
 
@@ -50,6 +50,9 @@ like this:
       # + additional params
     );
 
+IMPORTANT NOTE: Building Alien::Tidyp requires GNU make utility as tidyp Makefile
+uses some features that can be incompatible with other non-GNU make tools.
+    
 =head1 METHODS
 
 =head2 config()
