@@ -58,7 +58,7 @@ sub get_make {
     }
   }
   warn "###WARN### GNU make autodetection failed\n";
-  my $fallback = ($^O eq 'solaris') ? 'gmake' : 'make';
+  my $fallback = 'make';
   print "- fallback to: '$fallback'\n";
   return $fallback;
 }

@@ -1,6 +1,10 @@
 Revision history for Alien-Tidyp
 
-0.99.7
+1.0.1	25/04/2010
+	- tidyp 1.0 sources
+	- gmake as a fallback on solaris reverted
+
+0.99.7	06/04/2010
 	- Fix for no_index (another try)
 	- Use gmake as a fallback on solaris
 
