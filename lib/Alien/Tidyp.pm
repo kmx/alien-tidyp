@@ -21,13 +21,13 @@ Version v1.02.1 of Alien::Tidyp uses I<tidyp> sources v1.02.
 
 =head1 SYNOPSIS
 
-Alien::Tidyp module does the following during its installation:
+Alien::Tidyp installation comprise of:
 
 =over
 
-=item * Builds I<tidyp> binaries from source codes
+=item * Building I<tidyp> binaries from source codes
 
-=item * Installs binaries and dev files (*.h, *.a) into I<share> directory of Alien::Tidyp distribution
+=item * Installing binaries and dev files (*.h, *.a) into I<share> directory of Alien::Tidyp distribution
 
 =item * I<share> directory is usually something like this: /usr/lib/perl5/site_perl/5.10/auto/share/dist/Alien-Tidyp
 
