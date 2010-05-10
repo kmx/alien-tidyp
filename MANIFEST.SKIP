@@ -6,6 +6,8 @@ blib
 ^Build$
 ^Build.bat$
 ^build_done$
+^build_src
+^download
 sharedir/.+/
 ^MANIFEST.SKIP$
 ^tmp

@@ -3,7 +3,7 @@ NAME
     <http://www.tidyp.com>
 
 VERSION
-    Version v1.02.1 of Alien::Tidyp uses *tidyp* sources v1.02.
+    Version v1.2.1 of Alien::Tidyp uses *tidyp* sources v1.02.
 
 SYNOPSIS
     Alien::Tidyp installation comprise of:
