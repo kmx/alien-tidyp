@@ -1,5 +1,9 @@
 Revision history for Alien-Tidyp
 
+NEXT
+	- tidyp source not directly include but downloaded before build
+	- Win32 dmake support
+
 1.02.1	10/05/2010
 	- tidyp 1.02 sources
 

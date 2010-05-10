@@ -13,7 +13,7 @@ Alien::Tidyp - Build and make available tidyp library - L<http://www.tidyp.com>
 
 =cut
 
-our $VERSION = 'v1.02.1';
+our $VERSION = 'v1.02.1_01';
 
 =head1 VERSION
 

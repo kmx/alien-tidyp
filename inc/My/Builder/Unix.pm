@@ -9,27 +9,41 @@ use File::Spec qw(devnull);
 use Config;
 
 sub build_binaries {
-  my ($self, $build_out) = @_;
+  my ($self, $build_out, $srcdir) = @_;
+  $srcdir ||= 'src';
   my $prefixdir = rel2abs($build_out);
+  $self->config_data('build_prefix', $prefixdir); # save it for future ConfigData
 
-  chdir "src/build/gmake";
-  print "Gonna cd build/gmake & make install ...\n";
-  my @cmd = ($self->get_make, 'installhdrs', 'installib', 'installexes',
-                              "runinst_prefix=$prefixdir", "devinst_prefix=$prefixdir", "CC=$Config{cc}");
-  print "[cmd: ".join(' ',@cmd)."]\n";
+  chdir $srcdir;
+
+  # do './configure ...'
+  my $run_configure = 'y';
+  $run_configure = $self->prompt("Run ./configure again?", "n") if (-f "config.status");
+  if (lc($run_configure) eq 'y') {
+    my @cmd = ( './configure', '--enable-shared=no', '--disable-dependency-tracking', "--prefix=$prefixdir");
+    print "Configuring ...\n";
+    print "(cmd: ".join(' ',@cmd).")\n";
+    $self->do_system(@cmd) or die "###ERROR### [$?] during ./configure ... ";
+  }
+
+  # do 'make install'
+  my @cmd = ($self->get_make, 'install');
+  print "Running make install ...\n";
+  print "(cmd: ".join(' ',@cmd).")\n";
   $self->do_system(@cmd) or die "###ERROR### [$?] during make ... ";
-  chdir $self->base_dir();
 
+  chdir $self->base_dir();
   return 1;
 }
 
 sub make_clean {
-  my ($self) = @_;
+  my ($self, $srcdir) = @_;
+  $srcdir ||= 'src';
 
-  chdir "src/build/gmake";
-  print "Gonna cd build/gmake & make clean\n";
+  chdir $srcdir;
   my @cmd = ($self->get_make, 'clean');
-  print "[cmd: ".join(' ',@cmd)."]\n";
+  print "Running make clean ...\n";
+  print "(cmd: ".join(' ',@cmd).")\n";
   $self->do_system(@cmd) or warn "###WARN### [$?] during make ... ";
   chdir $self->base_dir();
 
@@ -42,25 +56,19 @@ sub get_make {
   my @try = ($Config{gmake}, 'gmake', 'make', $Config{make});
   my %tested;
   print "Gonna detect GNU make:\n";
-  print "- \$Config{gmake} = $Config{gmake}\n";
-  print "- \$Config{make} = $Config{make}\n";
   foreach my $name ( @try ) {
     next unless $name;
     next if $tested{$name};
     $tested{$name} = 1;
     print "- testing: '$name'\n";
-    my $ver = `$name -v 2> $devnull`;
-    my $rv = system("$name -v > $devnull 2>&1");
-    print "  rv=$rv\n$ver";
+    my $ver = `$name --version 2> $devnull`;
     if ($ver =~ /GNU Make/i) {
       print "- found: '$name'\n";
       return $name
     }
   }
-  warn "###WARN### GNU make autodetection failed\n";
-  my $fallback = 'make';
-  print "- fallback to: '$fallback'\n";
-  return $fallback;
+  print "- fallback to: 'make'\n";
+  return 'make';
 }
 
 sub quote_literal {

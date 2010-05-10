@@ -9,16 +9,18 @@ use File::Spec qw(devnull);
 use Config;
 
 sub build_binaries {
-  my ($self, $build_out) = @_;
+  my ($self, $build_out, $srcdir) = @_;
   my $prefixdir = rel2abs($build_out);
   my $perl = $^X;
   # for GNU make on MS Windows it is safer to convert \ to /
   $perl =~ s|\\|/|g;
   $prefixdir =~ s|\\|/|g;
 
-  chdir "src";
-  print "Gonna make -f build/win32/Makefile.mingw install ...\n";
-  my @cmd = ( $self->get_make, '-f', 'build/win32/Makefile.mingw', "PERL=$perl", "PREFIX=$prefixdir", "CC=$Config{cc}", "install" );
+  my $makefile = rel2abs('patches\Makefile.mingw'); # ugly hack
+
+  chdir $srcdir;
+  print "Gonna make -f Makefile.mingw install ...\n";
+  my @cmd = ( $self->get_make, '-f', $makefile, "PERL=$perl", "PREFIX=$prefixdir", "CC=$Config{cc}", "install" );
   print "[cmd: ".join(' ',@cmd)."]\n";
   $self->do_system(@cmd) or die "###ERROR### [$?] during make ... ";
   chdir $self->base_dir();
@@ -27,14 +29,16 @@ sub build_binaries {
 }
 
 sub make_clean {
-  my ($self) = @_;
+  my ($self, $srcdir) = @_;
   my $perl = $^X;
   # for GNU make on MS Windows it is safer to convert \ to /
   $perl =~ s|\\|/|g;
 
-  chdir "src";
-  print "Gonna make -f build/win32/Makefile.mingw clean\n";
-  my @cmd = ($self->get_make, '-f', 'build/win32/Makefile.mingw', "PERL=$perl", 'clean');
+  my $makefile = rel2abs('patches\Makefile.mingw'); # ugly hack
+
+  chdir $srcdir;
+  print "Gonna make -f Makefile.mingw clean\n";
+  my @cmd = ($self->get_make, '-f', $makefile, "PERL=$perl", 'clean');
   print "[cmd: ".join(' ',@cmd)."]\n";
   $self->do_system(@cmd) or warn "###WARN### [$?] during make ... ";
   chdir $self->base_dir();

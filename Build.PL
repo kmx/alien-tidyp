@@ -26,12 +26,18 @@ my $builder = $package->new(
   configure_requires => {
     'File::Spec'        => 0,
     'ExtUtils::Command' => 0,
+    'File::Fetch'       => 0,
+    'Digest::SHA'       => 0,
+    'Archive::Extract'  => 0,
   },
   build_requires => {
     'Test::More'        => 0,
     'File::ShareDir'    => 0,
     'File::Spec'        => 0,
     'ExtUtils::Command' => 0,
+    'File::Fetch'       => 0,
+    'Digest::SHA'       => 0,
+    'Archive::Extract'  => 0,
   },
   share_dir          => 'sharedir',
   create_readme      => 1,
