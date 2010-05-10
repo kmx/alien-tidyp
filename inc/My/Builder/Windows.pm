@@ -52,7 +52,9 @@ sub get_make {
   foreach my $name ( @try ) {
     next unless $name;
     print "- testing: '$name'\n";
-    if (system("$name -v 2>nul 1>nul") != 256) { # I am not sure if this is the right way to detect non existing executable
+    if (system("$name --help 2>nul 1>nul") != 256) {
+      # I am not sure if this is the right way to detect non existing executable
+      # but it seems to work on MS Windows (more or less)
       print "- found: '$name'\n";
       return $name;
     };
