@@ -47,9 +47,6 @@ like this:
       INC          => Alien::Tidyp->config('INC'),
       # + additional params
     );
-
-IMPORTANT NOTE: Building Alien::Tidyp requires GNU make utility as tidyp Makefile
-uses some features that can be incompatible with other non-GNU make tools.
     
 =head1 METHODS
 
@@ -80,8 +77,7 @@ the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Alien-Tidy
 
 =head1 LICENSE AND COPYRIGHT
 
-Please notice that the source code of tidyp library embedded in Alien::Tidyp
-(in 'src' subdirectory) has a different license than module itself.
+Please notice that the source code of tidyp library has a different license than module itself.
 
 =head2 Alien::Tidyp perl module
 
