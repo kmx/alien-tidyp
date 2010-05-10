@@ -1,5 +1,8 @@
 Revision history for Alien-Tidyp
 
+1.02.1	10/05/2010
+	- tidyp 1.02 sources
+
 1.0.1	25/04/2010
 	- tidyp 1.0 sources
 	- gmake as a fallback on solaris reverted
