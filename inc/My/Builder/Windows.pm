@@ -5,7 +5,6 @@ use warnings;
 use base 'My::Builder';
 
 use File::Spec::Functions qw(catdir catfile rel2abs);
-use File::Spec qw(devnull);
 use Config;
 
 sub build_binaries {
@@ -48,13 +47,17 @@ sub make_clean {
 
 sub get_make {
   my ($self) = @_;
-  my $devnull = File::Spec->devnull();
-  my @try = ( $Config{gmake}, 'mingw32-make', 'gmake', 'make');
+  my @try = ( 'dmake', 'mingw32-make', 'gmake', 'make', $Config{make}, $Config{gmake} );
+  print "Gonna detect make:\n";
   foreach my $name ( @try ) {
     next unless $name;
-    return $name if `$name -v 2> $devnull`;
+    print "- testing: '$name'\n";
+    if (system("$name -v 2>nul 1>nul") != 256) { # I am not sure if this is the right way to detect non existing executable
+      print "- found: '$name'\n";
+      return $name;
+    };
   }
-  warn "###WARN### no GNU make utility detected, falling back to 'dmake'\n";
+  print "- fallback to: 'dmake'\n";
   return 'dmake';
 }
 
