@@ -21,7 +21,7 @@ Version v1.02.1 of Alien::Tidyp uses I<tidyp> sources v1.02.
 
 =head1 SYNOPSIS
 
-Alien::Tidyp during its installation does the following:
+Alien::Tidyp module does the following during its installation:
 
 =over
 
