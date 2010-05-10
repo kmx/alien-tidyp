@@ -45,13 +45,13 @@ sub make_clean {
 sub get_make {
   my ($self) = @_;
   my $devnull = File::Spec->devnull();
-  my @try = ( $Config{gmake}, 'mingw32-make', 'gmake', 'make', 'dmake');
+  my @try = ( $Config{gmake}, 'mingw32-make', 'gmake', 'make');
   foreach my $name ( @try ) {
     next unless $name;
-    return $name if `$name --help 2> $devnull`;
+    return $name if `$name -v 2> $devnull`;
   }
-  warn "###WARN### no make utility detected\n";
-  return 'make';
+  warn "###WARN### no GNU make utility detected, falling back to 'dmake'\n";
+  return 'dmake';
 }
 
 sub quote_literal {
