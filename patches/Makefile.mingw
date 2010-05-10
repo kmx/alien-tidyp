@@ -1,7 +1,11 @@
 #PLEASE NOTE: this Makefile was designed to be compatible with GNU make and dmake
 
-CFLAGS   = -Isrc -Iinclude -O2 -Wall -D_WIN32_WINNT=0x0500 -Wunused-parameter -DSUPPORT_ACCESSIBILITY_CHECKS -DSUPPORT_ASIAN_ENCODINGS -DSUPPORT_UTF16_ENCODINGS
-OBJS     = src/access.o src/alloc.o src/attrask.o src/attrdict.o src/attrget.o src/attrs.o src/buffio.o src/clean.o src/config.o src/entities.o src/fileio.o src/istack.o src/lexer.o src/localize.o src/mappedio.o src/parser.o src/pprint.o src/streamio.o src/tagask.o src/tags.o src/tidyplib.o src/tmbstr.o src/utf8.o
+CFLAGS   = -Isrc -Iinclude -O2 -Wall -D_WIN32_WINNT=0x0500 \
+           -DSUPPORT_ACCESSIBILITY_CHECKS=1 -DSUPPORT_ASIAN_ENCODINGS=1 -DSUPPORT_UTF16_ENCODINGS=1
+OBJS     = src/access.o src/alloc.o src/attrask.o src/attrdict.o src/attrget.o src/attrs.o src/buffio.o \
+           src/clean.o src/config.o src/entities.o src/fileio.o src/istack.o src/lexer.o src/localize.o \
+	   src/mappedio.o src/parser.o src/pprint.o src/streamio.o src/tagask.o src/tags.o \
+	   src/tidyplib.o src/tmbstr.o src/utf8.o
 EXE1     = tidyp.exe
 EXE1OBJS = src/tidyp.o
 

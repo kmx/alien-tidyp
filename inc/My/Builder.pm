@@ -25,32 +25,31 @@ sub ACTION_code {
     $self->add_to_cleanup($build_out);
     $self->add_to_cleanup($build_src);
     $self->add_to_cleanup('build_done');
+
     # get sources
-    my ($url, $dir, $sha1) = ('http://github.com/downloads/petdance/tidyp/tidyp-1.02.tar.gz', 'tidyp-1.02', 'f3a6c9a2ed18c14fbf7330760ed727a70558e466');
+    my $url  = $self->notes('tidyp_url');
+    my $dir  = $self->notes('tidyp_dir');
+    my $sha1 = $self->notes('tidyp_sha1');
     $self->fetch_file($url, $sha1, $download);
     $self->notes('tidyp_src', "$build_src/$dir");
     my $archive = catfile($download, File::Fetch->new(uri => $url)->file);
     my $ae = Archive::Extract->new( archive => $archive );
     die "###ERROR###: cannot extract tarball ", $ae->error unless $ae->extract(to => $build_src);
+
     # go for build
     $self->build_binaries($build_out, $self->notes('tidyp_src'));
     # store info about build into future Alien::Tidyp::ConfigData
     $self->config_data('share_subdir', $self->{properties}->{dist_version});
     $self->config_data('config', { PREFIX => '@PrEfIx@',
-                                   LIBS   => '-L@PrEfIx@/lib -ltidyp',
-                                   INC    => '-I@PrEfIx@/include/tidyp',
+                                   LIBS   => '-L' . $self->quote_literal('@PrEfIx@/lib') . ' -ltidyp',
+                                   INC    => '-I' . $self->quote_literal('@PrEfIx@/include/tidyp'),
                                  });
+
     # mark sucessfully finished build
     local @ARGV = ('build_done');
     ExtUtils::Command::touch();
   }
   $self->SUPER::ACTION_code;
-}
-
-sub ACTION_clean {
-  my $self = shift;
-  $self->make_clean($self->notes('tidyp_src'));
-  $self->SUPER::ACTION_clean;
 }
 
 sub fetch_file {
@@ -76,18 +75,24 @@ sub fetch_file {
 }
 
 sub check_sha1sum {
-  my( $self, $file, $sha1sum ) = @_;
+  my ($self, $file, $sha1sum) = @_;
   my $sha1 = Digest::SHA->new;
   my $fh;
   open($fh, $file) or die "###ERROR## Cannot check checksum for '$file'\n";
   binmode($fh);
   $sha1->addfile($fh);
   close($fh);
-  return ($sha1->hexdigest eq $sha1sum) ? 1 : 0
+  return ($sha1->hexdigest eq $sha1sum) ? 1 : 0;
 }
 
 sub build_binaries {
-  die "###ERROR### My::Builder cannot build libidyp from sources, use rather My::Builder::<platform>";
+  die "###ERROR### My::Builder cannot build libtidyp from sources, use rather My::Builder::<platform>";
+}
+
+sub quote_literal {
+  # this needs to be overriden in My::Builder::<platform>
+  my ($self, $path) = @_;
+  return $path;
 }
 
 1;

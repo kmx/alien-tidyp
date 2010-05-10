@@ -36,20 +36,6 @@ sub build_binaries {
   return 1;
 }
 
-sub make_clean {
-  my ($self, $srcdir) = @_;
-  $srcdir ||= 'src';
-
-  chdir $srcdir;
-  my @cmd = ($self->get_make, 'clean');
-  print "Running make clean ...\n";
-  print "(cmd: ".join(' ',@cmd).")\n";
-  $self->do_system(@cmd) or warn "###WARN### [$?] during make ... ";
-  chdir $self->base_dir();
-
-  return 1;
-}
-
 sub get_make {
   my ($self) = @_;
   my $devnull = File::Spec->devnull();

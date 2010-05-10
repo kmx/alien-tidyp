@@ -13,17 +13,19 @@ Alien::Tidyp - Build and make available tidyp library - L<http://www.tidyp.com>
 
 =cut
 
-our $VERSION = 'v1.2.1_2';
+our $VERSION = 'v1.2.3';
 
 =head1 VERSION
 
-Version v1.2.1 of Alien::Tidyp uses I<tidyp> sources v1.02.
+Version v1.2.3 of Alien::Tidyp uses I<tidyp> sources v1.02.
 
 =head1 SYNOPSIS
 
-Alien::Tidyp installation comprise of:
+Building and installing Alien::Tidyp comprise of:
 
 =over
+
+=item * Downloading I<tidyp> source code tarball
 
 =item * Building I<tidyp> binaries from source codes
 
@@ -33,8 +35,8 @@ Alien::Tidyp installation comprise of:
 
 =back
 
-Later you can use Alien::Tidyp in your module that needs to link with I<tidyp>
-like this:
+Later on you can use Alien::Tidyp in your module that needs to link with
+I<tidyp> like this:
 
     # Sample Makefile.pl
     use ExtUtils::MakeMaker;

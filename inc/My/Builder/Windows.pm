@@ -27,24 +27,6 @@ sub build_binaries {
   return 1;
 }
 
-sub make_clean {
-  my ($self, $srcdir) = @_;
-  my $perl = $^X;
-  # for GNU make on MS Windows it is safer to convert \ to /
-  $perl =~ s|\\|/|g;
-
-  my $makefile = rel2abs('patches\Makefile.mingw'); # ugly hack
-
-  chdir $srcdir;
-  print "Gonna make -f Makefile.mingw clean\n";
-  my @cmd = ($self->get_make, '-f', $makefile, "PERL=$perl", 'clean');
-  print "[cmd: ".join(' ',@cmd)."]\n";
-  $self->do_system(@cmd) or warn "###WARN### [$?] during make ... ";
-  chdir $self->base_dir();
-
-  return 1;
-}
-
 sub get_make {
   my ($self) = @_;
   my @try = ( 'dmake', 'mingw32-make', 'gmake', 'make', $Config{make}, $Config{gmake} );

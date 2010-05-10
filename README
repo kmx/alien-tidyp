@@ -3,10 +3,12 @@ NAME
     <http://www.tidyp.com>
 
 VERSION
-    Version v1.2.1 of Alien::Tidyp uses *tidyp* sources v1.02.
+    Version v1.2.3 of Alien::Tidyp uses *tidyp* sources v1.02.
 
 SYNOPSIS
-    Alien::Tidyp installation comprise of:
+    Building and installing Alien::Tidyp comprise of:
+
+    *   Downloading *tidyp* source code tarball
 
     *   Building *tidyp* binaries from source codes
 
@@ -16,7 +18,7 @@ SYNOPSIS
     *   *share* directory is usually something like this:
         /usr/lib/perl5/site_perl/5.10/auto/share/dist/Alien-Tidyp
 
-    Later you can use Alien::Tidyp in your module that needs to link with
+    Later on you can use Alien::Tidyp in your module that needs to link with
     *tidyp* like this:
 
         # Sample Makefile.pl
