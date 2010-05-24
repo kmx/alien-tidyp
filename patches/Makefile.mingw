@@ -9,7 +9,6 @@ OBJS     = src/access.o src/alloc.o src/attrask.o src/attrdict.o src/attrget.o s
 EXE1     = tidyp.exe
 EXE1OBJS = src/tidyp.o
 
-RANLIB   = ranlib
 CC       = gcc
 STRIP    = strip
 AR       = ar
@@ -44,7 +43,6 @@ clean:
 
 $(STATIC_LIB): $(OBJS)
 	$(AR) $(ARFLAGS) $@ $^
-	$(RANLIB) $@
 
 $(EXE1): $(EXE1OBJS) $(STATIC_LIB)
 	$(CC) -o $@ $^
