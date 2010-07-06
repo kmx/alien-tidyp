@@ -22,6 +22,8 @@ my $builder = $package->new(
   },
   configure_requires => {
     'File::Spec'        => 0,
+    'File::Temp'        => 0,
+    'ExtUtils::CBuilder'=> 0,
     'ExtUtils::Command' => 0,
     'File::Fetch'       => 0,
     'Digest::SHA'       => 0,
@@ -31,6 +33,8 @@ my $builder = $package->new(
     'Test::More'        => 0,
     'File::ShareDir'    => 0,
     'File::Spec'        => 0,
+    'File::Temp'        => 0,
+    'ExtUtils::CBuilder'=> 0,
     'ExtUtils::Command' => 0,
     'File::Fetch'       => 0,
     'Digest::SHA'       => 0,
@@ -47,6 +51,14 @@ my $builder = $package->new(
 );
 
 $builder->create_build_script();
+
+if ($builder->check_installed_tidyp()) {
+  my $ans = $builder->prompt("Tidyp detected, wanna use tidyp already installed on your system?", 'n');
+  $builder->notes('installed_tidyp', undef) unless (lc($ans) eq 'y');
+}
+
+# delete build marker (= force rebuild after running Build.PL)
+unlink 'build_done';
 
 # set what tidyp tarball we are gonna use
 $builder->notes('tidyp_url', 'http://github.com/downloads/petdance/tidyp/tidyp-1.02.tar.gz');

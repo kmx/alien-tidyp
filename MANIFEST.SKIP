@@ -11,6 +11,9 @@ blib
 sharedir/.+/
 ^MANIFEST.SKIP$
 ^tmp
+^test
+^output.stderr.txt$
+^tidyp\-
 \.tmp$
 \.bak$
 \.old$

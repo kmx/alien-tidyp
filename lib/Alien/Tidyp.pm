@@ -49,7 +49,7 @@ I<tidyp> like this:
       INC          => Alien::Tidyp->config('INC'),
       # + additional params
     );
-    
+
 =head1 METHODS
 
 =head2 config()
@@ -132,11 +132,15 @@ acknowledgment is not required but would be appreciated.
 sub config
 {
   my ($package, $param) = @_;
-  my $share_dir = dist_dir('Alien-Tidyp');
-  my $subdir = Alien::Tidyp::ConfigData->config('share_subdir');
-  return unless $subdir;
-  my $real_prefix = catdir($share_dir, $subdir);
   return unless ($param =~ /[a-z0-9_]*/i);
+  my $subdir = Alien::Tidyp::ConfigData->config('share_subdir');
+  unless ($subdir) {
+    #we are using tidyp already installed on your system not compiled by Alien::Tidyp
+    #therefore no additinal magic needed
+    return Alien::Tidyp::ConfigData->config('config')->{$param};
+  }
+  my $share_dir = dist_dir('Alien-Tidyp');
+  my $real_prefix = catdir($share_dir, $subdir);
   my $val = Alien::Tidyp::ConfigData->config('config')->{$param};
   return unless $val;
   $val =~ s/\@PrEfIx\@/$real_prefix/g; # handle @PrEfIx@ replacement

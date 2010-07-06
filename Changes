@@ -1,7 +1,8 @@
 Revision history for Alien-Tidyp
 
 1.2.4	NEXT
-	- leaving out ranlib on mingw build
+        - added detection of already installed tidyp
+	- leaving out ranlib on mingw build (fixing CPAn Testers failures)
 
 1.2.3	11/05/2010
 	- tidyp source not directly include but downloaded before build
