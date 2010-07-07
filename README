@@ -3,14 +3,20 @@ NAME
     <http://www.tidyp.com>
 
 VERSION
-    Version v1.2.4 of Alien::Tidyp uses *tidyp* sources v1.02.
+    Version v1.2.5 of Alien::Tidyp uses *tidyp* sources v1.02.
 
 SYNOPSIS
     Alien::Tidyp tries (in given order) during its installation:
 
-    *   Locate an already installed tidyp + ask user whether to use the
-        already installed tidyp or whether to build tidyp from source codes
-        (see the following 3 bullets)
+    *   Locate an already installed *tidyp* + ask user whether to use the
+        already installed *tidyp* or whether to build *tidyp* from sources
+
+    *   Via env variable TIDYP_DIR you can specify where the build script
+        should look for the already installed *tidyp* (directories
+        $TIDYP_DIR/lib and $TIDYP_DIR/include/tidyp are expected to exist)
+
+    *   When not using the already installed *tidyp* build process continues
+        with the following steps
 
     *   Download *tidyp* source code tarball
 
@@ -49,7 +55,8 @@ METHODS
 
         Alien::Tidyp->config('PREFIX');
 
-    Returns a string like: '/path/to/tidyp/dir'
+    Returns a string like: '/path/to/tidyp/dir' (note: if using the already
+    installed tidyp config('PREFIX') returns undef)
 
 AUTHOR
     KMX, <kmx at cpan.org>

@@ -108,33 +108,35 @@ sub check_installed_tidyp {
   my ($self) = @_;
 
   require ExtUtils::CBuilder;
-  my $cb = ExtUtils::CBuilder->new(quiet => 1);
+  my $cb = ExtUtils::CBuilder->new( quiet => 1 );
   my $dir = tempdir( CLEANUP => 1 );
   my ($fs, $src) = tempfile( DIR => $dir, SUFFIX => '.c' );
   syswrite($fs, <<MARKER); # write test source code
 #include <tidyp.h>
-int func() { tidyVersion(); return 0; }
+int main() { tidyVersion(); return 0; }
 
 MARKER
   close($fs);
 
-  my @candidates = (
-       { L => '/usr/local/lib', I => '/usr/local/include/tidyp' },
-       { L => '/usr/lib', I => '/usr/include/tidyp' },
-       { L => '', I => "$Config{usrinc}/tidyp" },
-     );
+  my $tdir = $ENV{TIDYP_DIR};
+  my @candidates;
+  push(@candidates, { L => "$tdir/lib", I => "$tdir/include/tidyp" }) if -d $tdir;
+  push(@candidates, { L => '/usr/local/lib', I => '/usr/local/include/tidyp' });
+  push(@candidates, { L => '/usr/lib', I => '/usr/include/tidyp' });
+  push(@candidates, { L => '', I => "$Config{usrinc}/tidyp" });
+
   print "Gonna detect tidyp already installed on your system:\n";
   foreach my $i (@candidates) {
     my $lflags = $i->{L} ? '-L'.$self->quote_literal($i->{L}).' -ltidyp' : '-ltidyp';
     my $cflags = $i->{I} ? '-I'.$self->quote_literal($i->{I}) : '';
     print "- testing: $cflags $lflags ...\n";
-    my ($obj, $lib);
+    my ($obj, $exe);
     open(my $olderr, '>&', STDERR);
     open(STDERR, '>', File::Spec->devnull());
-    $obj = eval { $cb->compile( source => $src, extra_compiler_flags => $cflags) };
-    $lib = eval { $cb->link( objects => $obj, extra_linker_flags => $lflags) } if $obj;
+    $obj = eval { $cb->compile( source => $src, extra_compiler_flags => $cflags ) };
+    $exe = eval { $cb->link_executable( objects => $obj, extra_linker_flags => $lflags ) } if $obj;
     open(STDERR, '>&', $olderr);
-    next unless $lib;
+    next unless $exe;
     print "- TIDYP FOUND!\n";
     $self->notes('installed_tidyp', { lflags => $lflags, cflags => $cflags } );
     return 1;

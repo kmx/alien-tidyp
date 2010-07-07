@@ -13,11 +13,11 @@ Alien::Tidyp - Build and make available tidyp library - L<http://www.tidyp.com>
 
 =cut
 
-our $VERSION = 'v1.2.4';
+our $VERSION = 'v1.2.5';
 
 =head1 VERSION
 
-Version v1.2.4 of Alien::Tidyp uses I<tidyp> sources v1.02.
+Version v1.2.5 of Alien::Tidyp uses I<tidyp> sources v1.02.
 
 =head1 SYNOPSIS
 
@@ -25,8 +25,15 @@ Alien::Tidyp tries (in given order) during its installation:
 
 =over
 
-=item * Locate an already installed tidyp + ask user whether to use the already installed
-tidyp or whether to build tidyp from source codes (see the following 3 bullets)
+=item * Locate an already installed I<tidyp> + ask user whether to use the already installed
+I<tidyp> or whether to build I<tidyp> from sources
+
+=item * Via env variable TIDYP_DIR you can specify where the build script should look
+for the already installed I<tidyp> (directories $TIDYP_DIR/lib and $TIDYP_DIR/include/tidyp
+are expected to exist)
+
+=item * When not using the already installed I<tidyp> build process continues with
+the following steps
 
 =item * Download I<tidyp> source code tarball
 
@@ -68,7 +75,8 @@ Returns a string like: '-I/path/to/tidyp/dir/include/tidyp'
 
     Alien::Tidyp->config('PREFIX');
 
-Returns a string like: '/path/to/tidyp/dir'
+Returns a string like: '/path/to/tidyp/dir' (note: if using the already installed
+tidyp config('PREFIX') returns undef)
 
 =head1 AUTHOR
 
