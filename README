@@ -3,20 +3,22 @@ NAME
     <http://www.tidyp.com>
 
 VERSION
-    Version v1.2.3 of Alien::Tidyp uses *tidyp* sources v1.02.
+    Version v1.2.4 of Alien::Tidyp uses *tidyp* sources v1.02.
 
 SYNOPSIS
-    Building and installing Alien::Tidyp comprise of:
+    Alien::Tidyp tries (in given order) during its installation:
 
-    *   Downloading *tidyp* source code tarball
+    *   Locate an already installed tidyp + ask user whether to use the
+        already installed tidyp or whether to build tidyp from source codes
+        (see the following 3 bullets)
 
-    *   Building *tidyp* binaries from source codes
+    *   Download *tidyp* source code tarball
 
-    *   Installing binaries and dev files (*.h, *.a) into *share* directory
-        of Alien::Tidyp distribution
+    *   Build *tidyp* binaries from source codes
 
-    *   *share* directory is usually something like this:
-        /usr/lib/perl5/site_perl/5.10/auto/share/dist/Alien-Tidyp
+    *   Install binaries and dev files (*.h, *.a) into *share* directory of
+        Alien::Tidyp distribution - *share* directory is usually something
+        like this: /usr/lib/perl5/site_perl/5.10/auto/share/dist/Alien-Tidyp
 
     Later on you can use Alien::Tidyp in your module that needs to link with
     *tidyp* like this:

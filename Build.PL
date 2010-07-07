@@ -53,7 +53,7 @@ my $builder = $package->new(
 $builder->create_build_script();
 
 if ($builder->check_installed_tidyp()) {
-  my $ans = $builder->prompt("Tidyp detected, wanna use tidyp already installed on your system?", 'n');
+  my $ans = $builder->prompt("Tidyp detected, wanna use tidyp already installed on your system?", 'y');
   $builder->notes('installed_tidyp', undef) unless (lc($ans) eq 'y');
 }
 
