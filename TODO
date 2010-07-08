@@ -1,1 +1,4 @@
-Nothing at the moment
+- msvc support not working well
+- msvc: detection of the already installed tidyp does not work
+- msvc: 64bit support is not well tested
+- msvc: building of HTML::Tidyp with Alien::Tidyp fails

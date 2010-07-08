@@ -15,12 +15,28 @@ sub build_binaries {
   $perl =~ s|\\|/|g;
   $prefixdir =~ s|\\|/|g;
 
-  my $makefile = rel2abs('patches\Makefile.mingw'); # ugly hack
-
-  chdir $srcdir;
-  print "Gonna make -f Makefile.mingw install ...\n";
-  my @cmd = ( $self->get_make, '-f', $makefile, "PERL=$perl", "PREFIX=$prefixdir", "CC=$Config{cc}", "install" );
+  my $make = $self->get_make;
+  print "Gonna call make install ...\n";
+  my @cmd;
+  if($make =~ /nmake/ && $Config{make} =~ /nmake/ && $Config{cc} =~ /cl/) { # MSVC compiler
+    my $makefile = rel2abs('patches\Makefile.nmake');
+    if ($Config{archname} =~ /x64/) { #64bit
+      @cmd = ( $make, '-f', $makefile, "PERL=perl", "PREFIX=$prefixdir", "CFG=Win64", "install" );
+      $self->notes('lflags', ' bufferoverflowU.lib /libpath:"@PrEfIx@\lib" tidyp.lib /NODEFAULTLIB libcmt.lib kernel32.lib');
+      $self->notes('cflags', '/I"@PrEfIx@\include\tidyp"'),
+    }
+    else { #32bit
+      @cmd = ( $make, '-f', $makefile, "PERL=perl", "PREFIX=$prefixdir", "install" );
+      $self->notes('lflags', '/libpath:"@PrEfIx@\lib" tidyp.lib');
+      $self->notes('cflags', '/I"@PrEfIx@\include\tidyp"'),
+    }    
+  }
+  else { # gcc compiler
+    my $makefile = rel2abs('patches\Makefile.mingw');
+    @cmd = ( $make, '/f', $makefile, "PERL=$perl", "PREFIX=$prefixdir", "CC=$Config{cc}", "install" );
+  }
   print "[cmd: ".join(' ',@cmd)."]\n";
+  chdir $srcdir;
   $self->do_system(@cmd) or die "###ERROR### [$?] during make ... ";
   chdir $self->base_dir();
 
