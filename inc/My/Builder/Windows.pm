@@ -33,7 +33,7 @@ sub build_binaries {
   }
   else { # gcc compiler
     my $makefile = rel2abs('patches\Makefile.mingw');
-    @cmd = ( $make, '/f', $makefile, "PERL=$perl", "PREFIX=$prefixdir", "CC=$Config{cc}", "install" );
+    @cmd = ( $make, '-f', $makefile, "PERL=$perl", "PREFIX=$prefixdir", "CC=$Config{cc}", "install" );
   }
   print "[cmd: ".join(' ',@cmd)."]\n";
   chdir $srcdir;
