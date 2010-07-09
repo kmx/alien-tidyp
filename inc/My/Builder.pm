@@ -12,6 +12,7 @@ use File::Temp qw(tempdir tempfile);
 use Digest::SHA qw(sha1_hex);
 use Archive::Extract;
 use Config;
+use ExtUtils::Liblist;
 
 sub ACTION_code {
   my $self = shift;
@@ -130,6 +131,7 @@ MARKER
     my $lflags = $i->{L} ? '-L'.$self->quote_literal($i->{L}).' -ltidyp' : '-ltidyp';
     my $cflags = $i->{I} ? '-I'.$self->quote_literal($i->{I}) : '';
     print "- testing: $cflags $lflags ...\n";
+    $lflags = ExtUtils::Liblist->ext($lflags) if($Config{make} =~ /nmake/ && $Config{cc} =~ /cl/); # MSVC compiler hack
     my ($obj, $exe);
     open(my $olderr, '>&', STDERR);
     open(STDERR, '>', File::Spec->devnull());

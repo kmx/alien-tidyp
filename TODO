@@ -1,3 +1,1 @@
-- msvc support works with some issues
-- msvc: detection of the already installed tidyp does not work
-- msvc: compile.t failure
+None

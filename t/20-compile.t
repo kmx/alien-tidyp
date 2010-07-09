@@ -8,6 +8,8 @@ use Test::More tests => 2;
 use Alien::Tidyp;
 use File::Temp qw(tempdir tempfile);
 use ExtUtils::CBuilder;
+use ExtUtils::Liblist;
+use Config;
 
 my $cb = ExtUtils::CBuilder->new(quiet => 0);
 
@@ -22,6 +24,7 @@ close($fs);
 
 my $i = Alien::Tidyp->config('INC');
 my $l = Alien::Tidyp->config('LIBS');
+$l = ExtUtils::Liblist->ext($l) if($Config{make} =~ /nmake/ && $Config{cc} =~ /cl/); # MSVC compiler hack
 
 my $obj = $cb->compile( source => $src, extra_compiler_flags => $i );
 isnt( $obj, undef, 'Testing compilation' );

@@ -23,4 +23,5 @@ sharedir/.+/
 \.o$
 \.exe$
 \.obj$
+\.pdb$
 ^MYMETA.yml$
