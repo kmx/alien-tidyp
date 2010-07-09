@@ -1,5 +1,8 @@
 Revision history for Alien-Tidyp
 
+1.2.7	XXX/07/2010
+	- win32/gcc CPAN Tester failure fix
+
 1.2.6	09/07/2010
 	- windows-msvc support added (both 32/64bit)
 
