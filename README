@@ -1,9 +1,9 @@
 NAME
-    Alien::Tidyp - Build and make available tidyp library -
+    Alien::Tidyp - Building, finding and using tidyp library -
     <http://www.tidyp.com>
 
 VERSION
-    Version v1.2.5 of Alien::Tidyp uses *tidyp* sources v1.02.
+    Version v1.2.6 of Alien::Tidyp uses *tidyp* sources v1.02.
 
 SYNOPSIS
     Alien::Tidyp tries (in given order) during its installation:

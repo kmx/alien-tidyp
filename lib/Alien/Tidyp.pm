@@ -9,15 +9,15 @@ use File::Spec::Functions qw(catdir catfile rel2abs);
 
 =head1 NAME
 
-Alien::Tidyp - Build and make available tidyp library - L<http://www.tidyp.com>
+Alien::Tidyp - Building, finding and using tidyp library - L<http://www.tidyp.com>
 
 =cut
 
-our $VERSION = 'v1.2.5';
+our $VERSION = 'v1.2.6';
 
 =head1 VERSION
 
-Version v1.2.5 of Alien::Tidyp uses I<tidyp> sources v1.02.
+Version v1.2.6 of Alien::Tidyp uses I<tidyp> sources v1.02.
 
 =head1 SYNOPSIS
 
