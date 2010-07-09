@@ -1,11 +1,9 @@
-# http://msdn.microsoft.com/en-us/library/cbes8ded%28v=VS.71%29.aspx
-# http://www.opensource.apple.com/source/libxslt/libxslt-8.1/libxslt/win32/Makefile.msvc
-
-CFLAGS   = -Isrc -Iinclude -D_WIN32_WINNT=0x0500 \
-           -DSUPPORT_ACCESSIBILITY_CHECKS=1 -DSUPPORT_ASIAN_ENCODINGS=1 -DSUPPORT_UTF16_ENCODINGS=1
-
 !IF "$(CFG)" == "Win64"
-LFLAGS   = bufferoverflowU.lib
+LFLAGS   = -nologo -machine:amd64 -nodefaultlib msvcrt.lib kernel32.lib bufferoverflowU.lib
+CFLAGS   = -nologo -GF -W3 -MD -Zi -DNDEBUG -O2 -Isrc -Iinclude -D_WIN32_WINNT=0x0500 -DSUPPORT_ACCESSIBILITY_CHECKS=1 -DSUPPORT_ASIAN_ENCODINGS=1 -DSUPPORT_UTF16_ENCODINGS=1
+!ELSE
+LFLAGS   = -nologo -machine:x86 -nodefaultlib msvcrt.lib kernel32.lib
+CFLAGS   = -nologo -GF -W3 -MD -Zi -DNDEBUG -O2 -Isrc -Iinclude -D_WIN32_WINNT=0x0500 -DSUPPORT_ACCESSIBILITY_CHECKS=1 -DSUPPORT_ASIAN_ENCODINGS=1 -DSUPPORT_UTF16_ENCODINGS=1
 !ENDIF
 
 OBJS     = src/access.obj src/alloc.obj src/attrask.obj src/attrdict.obj src/attrget.obj src/attrs.obj src/buffio.obj \

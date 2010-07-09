@@ -50,8 +50,8 @@ sub ACTION_code {
       # store info about build into future Alien::Tidyp::ConfigData
       $self->config_data('share_subdir', $self->{properties}->{dist_version});
       $self->config_data('config', { PREFIX => '@PrEfIx@',
-                                     LIBS   => $self->notes('lflags') || '-L' . $self->quote_literal('@PrEfIx@/lib') . ' -ltidyp',
-                                     INC    => $self->notes('cflags') || '-I' . $self->quote_literal('@PrEfIx@/include/tidyp'),
+                                     LIBS   => '-L' . $self->quote_literal('@PrEfIx@/lib') . ' -ltidyp',
+                                     INC    => '-I' . $self->quote_literal('@PrEfIx@/include/tidyp'),
                                    });
     }
     # mark sucessfully finished build
