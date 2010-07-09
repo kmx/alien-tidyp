@@ -10,22 +10,17 @@ EXE1     = tidyp.exe
 EXE1OBJS = src/tidyp.o
 
 CC       = gcc
-STRIP    = strip
 AR       = ar
 ARFLAGS  = csr
 PERL     = perl
 
 ifeq ($(NOPERL), 1)
   CP     = cp
-  MV     = mv
   RM_F   = rm -f
-  RM_RF  = rm -rf
   MKPATH = mkdir -p
 else
   CP     = $(PERL) -MExtUtils::Command -e cp --
-  MV     = $(PERL) -MExtUtils::Command -e mv --
   RM_F   = $(PERL) -MExtUtils::Command -e rm_f --
-  RM_RF  = $(PERL) -MExtUtils::Command -e rm_rf --
   MKPATH = $(PERL) -MExtUtils::Command -e mkpath --
 endif
 
@@ -53,7 +48,6 @@ install: all
 	$(MKPATH) "$(BINDIR)"
 	$(MKPATH) "$(LIBDIR)"
 	$(MKPATH) "$(INCDIR)/tidyp"
-	$(STRIP) -S $(EXE1)
 	$(CP) $(STATIC_LIB) "$(LIBDIR)"
 	$(CP) $(EXE1) "$(BINDIR)"
 	$(CP) include/buffio.h include/platform.h include/tidyp.h include/tidypenum.h "$(INCDIR)/tidyp"
