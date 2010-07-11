@@ -143,7 +143,7 @@ MARKER
     $self->notes('installed_tidyp', { lflags => $lflags, cflags => $cflags } );
     return 1;
   }
-  print "- tidyp not found!\n";
+  print "- tidyp not found (we have to build it from sources)!\n";
   return 0;
 }
 
