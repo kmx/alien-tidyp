@@ -43,6 +43,7 @@ my $builder = $package->new(
     'Archive::Extract'  => 0,
   },
   share_dir          => 'sharedir',
+  add_to_cleanup     => [ 'Alien-Tidyp-*', 'build_done' ],
   create_readme      => 1,
   meta_merge => {
     resources  => {

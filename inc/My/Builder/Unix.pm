@@ -20,7 +20,7 @@ sub build_binaries {
   my $run_configure = 'y';
   $run_configure = $self->prompt("Run ./configure again?", "n") if (-f "config.status");
   if (lc($run_configure) eq 'y') {
-    my @cmd = ( './configure', '--enable-shared=no', '--disable-dependency-tracking', "--prefix=$prefixdir");
+    my @cmd = ( './configure', '--enable-shared=no', '--disable-dependency-tracking', "--prefix=$prefixdir", 'CFLAGS=-fPIC');
     print "Configuring ...\n";
     print "(cmd: ".join(' ',@cmd).")\n";
     $self->do_system(@cmd) or die "###ERROR### [$?] during ./configure ... ";
@@ -57,10 +57,13 @@ sub get_make {
   return 'make';
 }
 
-sub quote_literal {
-    my ($self, $txt) = @_;
-    $txt =~ s|'|'\\''|g;
-    return "'$txt'";
-}
+# we are not afraid of dirnames with spaces on UNIX
+# IMPORTANT: EU::MM is not properly handling -L'/path/to/lib/dir'
+
+#sub quote_literal {
+#    my ($self, $txt) = @_;
+#    $txt =~ s|'|'\\''|g;
+#    return "'$txt'";
+#}
 
 1;
