@@ -1,5 +1,9 @@
 Revision history for Alien-Tidyp
 
+1.2.8	18/08/2010
+	- fix for 64bit Linux (forcing -fPIC)
+	- using -L/path/to instead of -L'/path/to' (EU::MM does not like it)
+
 1.2.7	11/07/2010
 	- win32/gcc CPAN Tester failure fix
 	- small changes in win32/msvc makefile

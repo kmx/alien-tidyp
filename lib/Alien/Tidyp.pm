@@ -13,11 +13,11 @@ Alien::Tidyp - Building, finding and using tidyp library - L<http://www.tidyp.co
 
 =cut
 
-our $VERSION = 'v1.2.7';
+our $VERSION = 'v1.2.8';
 
 =head1 VERSION
 
-Version v1.2.7 of Alien::Tidyp uses I<tidyp> sources v1.02.
+Version v1.2.8 of Alien::Tidyp uses I<tidyp> sources v1.02.
 
 =head1 SYNOPSIS
 
