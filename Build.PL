@@ -17,10 +17,12 @@ my $builder = $package->new(
   dist_author        => 'KMX, kmx@cpan.org',
   license            => 'perl',
   requires => {
+    'perl'              => '5.008',
     'File::ShareDir'    => 0,
     'File::Spec'        => 0,
   },
   configure_requires => {
+    'perl'              => '5.008',
     'File::Spec'        => 0,
     'File::Temp'        => 0,
     'ExtUtils::CBuilder'=> 0,
@@ -31,6 +33,7 @@ my $builder = $package->new(
     'Archive::Extract'  => 0,
   },
   build_requires => {
+    'perl'              => '5.008',
     'Test::More'        => 0,
     'File::ShareDir'    => 0,
     'File::Spec'        => 0,
