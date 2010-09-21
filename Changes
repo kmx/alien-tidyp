@@ -1,5 +1,8 @@
 Revision history for Alien-Tidyp
 
+1.4.1	21/09/2010
+	- tidyp v1.04
+
 1.2.8	18/08/2010
 	- fix for 64bit Linux (forcing -fPIC)
 	- using -L/path/to instead of -L'/path/to' (EU::MM does not like it)

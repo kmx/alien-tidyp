@@ -1,3 +1,4 @@
-- Better tests (compile something more complex)
+- better tests (compile something more complex)
 - try to fix CPAN TESTER failure - cygwin
   http://www.cpantesters.org/cpan/report/4c168ca0-835e-1019-823b-efac276d408b
+- delete old versions from sharedir during install
