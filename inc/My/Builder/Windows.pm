@@ -16,7 +16,7 @@ sub build_binaries {
   $prefixdir =~ s|\\|/|g;
 
   my $make = $self->get_make;
-  print "Gonna call make install ...\n";
+  print STDERR "Gonna call make install ...\n";
   my @cmd;
   if($make =~ /nmake/ && $Config{make} =~ /nmake/ && $Config{cc} =~ /cl/) { # MSVC compiler
     my $makefile = rel2abs('patches\Makefile.nmake');
@@ -31,7 +31,7 @@ sub build_binaries {
     my $makefile = rel2abs('patches\Makefile.mingw');
     @cmd = ( $make, '-f', $makefile, "PERL=$perl", "PREFIX=$prefixdir", "CC=$Config{cc}", "install" );
   }
-  print "[cmd: ".join(' ',@cmd)."]\n";
+  print STDERR "[cmd: ".join(' ',@cmd)."]\n";
   chdir $srcdir;
   $self->do_system(@cmd) or die "###ERROR### [$?] during make ... ";
   chdir $self->base_dir();
@@ -42,18 +42,18 @@ sub build_binaries {
 sub get_make {
   my ($self) = @_;
   my @try = ( 'dmake', 'mingw32-make', 'gmake', 'make', $Config{make}, $Config{gmake} );
-  print "Gonna detect make:\n";
+  print STDERR "Gonna detect make:\n";
   foreach my $name ( @try ) {
     next unless $name;
-    print "- testing: '$name'\n";
+    print STDERR "- testing: '$name'\n";
     if (system("$name --help 2>nul 1>nul") != 256) {
       # I am not sure if this is the right way to detect non existing executable
       # but it seems to work on MS Windows (more or less)
-      print "- found: '$name'\n";
+      print STDERR "- found: '$name'\n";
       return $name;
     };
   }
-  print "- fallback to: 'dmake'\n";
+  print STDERR "- fallback to: 'dmake'\n";
   return 'dmake';
 }
 

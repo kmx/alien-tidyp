@@ -8,7 +8,7 @@ my %platforms =(
   MSWin32 => 'Windows',
 );
 my $package = 'My::Builder::' . ($platforms{$^O} || 'Unix');
-print "Gonna use '$package' class ...\n";
+print STDERR "Gonna use '$package' class ...\n";
 eval "require $package" or die "Require '$package' failed: $@\n";
 
 my $builder = $package->new(
@@ -23,7 +23,9 @@ my $builder = $package->new(
   },
   configure_requires => {
     'perl'              => '5.008',
+    'File::ShareDir'    => 0,
     'File::Spec'        => 0,
+    'File::Path'        => 0,
     'File::Temp'        => 0,
     'ExtUtils::CBuilder'=> 0,
     'ExtUtils::Command' => 0,
@@ -37,6 +39,7 @@ my $builder = $package->new(
     'Test::More'        => 0,
     'File::ShareDir'    => 0,
     'File::Spec'        => 0,
+    'File::Path'        => 0,
     'File::Temp'        => 0,
     'ExtUtils::CBuilder'=> 0,
     'ExtUtils::Command' => 0,

@@ -21,15 +21,15 @@ sub build_binaries {
   $run_configure = $self->prompt("Run ./configure again?", "n") if (-f "config.status");
   if (lc($run_configure) eq 'y') {
     my @cmd = ( './configure', '--enable-shared=no', '--disable-dependency-tracking', "--prefix=$prefixdir", 'CFLAGS=-fPIC');
-    print "Configuring ...\n";
-    print "(cmd: ".join(' ',@cmd).")\n";
+    print STDERR "Configuring ...\n";
+    print STDERR "(cmd: ".join(' ',@cmd).")\n";
     $self->do_system(@cmd) or die "###ERROR### [$?] during ./configure ... ";
   }
 
   # do 'make install'
   my @cmd = ($self->get_make, 'install');
-  print "Running make install ...\n";
-  print "(cmd: ".join(' ',@cmd).")\n";
+  print STDERR "Running make install ...\n";
+  print STDERR "(cmd: ".join(' ',@cmd).")\n";
   $self->do_system(@cmd) or die "###ERROR### [$?] during make ... ";
 
   chdir $self->base_dir();
@@ -41,7 +41,7 @@ sub get_make {
   my $devnull = File::Spec->devnull();
   my @try = ($Config{gmake}, 'gmake', 'make', $Config{make});
   my %tested;
-  print "Gonna detect GNU make:\n";
+  print STDERR "Gonna detect GNU make:\n";
 
   if ($^O eq 'cygwin') {
     print STDERR "- on cygwin always 'make'\n";
@@ -52,14 +52,14 @@ sub get_make {
     next unless $name;
     next if $tested{$name};
     $tested{$name} = 1;
-    print "- testing: '$name'\n";
+    print STDERR "- testing: '$name'\n";
     my $ver = `$name --version 2> $devnull`;
     if ($ver =~ /GNU Make/i) {
-      print "- found: '$name'\n";
+      print STDERR "- found: '$name'\n";
       return $name
     }
   }
-  print "- fallback to: 'make'\n";
+  print STDERR "- fallback to: 'make'\n";
   return 'make';
 }
 
