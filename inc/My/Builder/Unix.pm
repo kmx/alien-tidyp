@@ -42,6 +42,12 @@ sub get_make {
   my @try = ($Config{gmake}, 'gmake', 'make', $Config{make});
   my %tested;
   print "Gonna detect GNU make:\n";
+
+  if ($^O eq 'cygwin') {
+    print STDERR "- on cygwin always 'make'\n";
+    return 'make'
+  }
+
   foreach my $name ( @try ) {
     next unless $name;
     next if $tested{$name};
