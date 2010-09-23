@@ -135,7 +135,7 @@ int main() { tidyVersion(); return 0; }
 MARKER
   close($fs);
 
-  my $tdir = $ENV{TIDYP_DIR};
+  my $tdir = $ENV{TIDYP_DIR} || '';
   my @candidates;
   push(@candidates, { L => "$tdir/lib", I => "$tdir/include/tidyp" }) if -d $tdir;
   push(@candidates, { L => '/usr/local/lib', I => '/usr/local/include/tidyp' });
