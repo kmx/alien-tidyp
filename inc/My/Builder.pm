@@ -9,10 +9,26 @@ use File::Spec::Functions qw(catfile);
 use ExtUtils::Command;
 use File::Fetch;
 use File::Temp qw(tempdir tempfile);
+use File::Path qw(make_path remove_tree);
+use File::ShareDir;
 use Digest::SHA qw(sha1_hex);
 use Archive::Extract;
 use Config;
 use ExtUtils::Liblist;
+
+sub ACTION_install {
+  my $self = shift;
+  my $sharedir = eval {File::ShareDir::dist_dir('Alien-Tidyp')} || '';
+ 
+  if ( -d $sharedir ) {
+    print STDERR "Removing the old '$sharedir'\n";
+    remove_tree($sharedir);
+    make_path($sharedir);
+  }
+ 
+  return $self->SUPER::ACTION_install(@_);
+}
+
 
 sub ACTION_code {
   my $self = shift;
