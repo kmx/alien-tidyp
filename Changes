@@ -1,5 +1,8 @@
 Revision history for Alien-Tidyp
 
+1.4.3	NEXT
+	- using File::Path legacy functions (works with File::Path <2.0 e.g. RHEL5)
+
 1.4.2	23/09/2010
 	- fixing cygwin cpan testers build failure (forcing 'make')
 	- deleting the old content of sharedir during install

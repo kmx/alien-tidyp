@@ -9,7 +9,7 @@ use File::Spec::Functions qw(catfile);
 use ExtUtils::Command;
 use File::Fetch;
 use File::Temp qw(tempdir tempfile);
-use File::Path qw(make_path remove_tree);
+use File::Path qw();
 use File::ShareDir;
 use Digest::SHA qw(sha1_hex);
 use Archive::Extract;
@@ -22,8 +22,8 @@ sub ACTION_install {
  
   if ( -d $sharedir ) {
     print STDERR "Removing the old '$sharedir'\n";
-    remove_tree($sharedir);
-    make_path($sharedir);
+    File::Path::rmtree($sharedir);
+    File::Path::mkpath($sharedir);    
   }
  
   return $self->SUPER::ACTION_install(@_);
