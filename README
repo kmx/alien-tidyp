@@ -3,9 +3,14 @@ NAME
     <http://www.tidyp.com>
 
 VERSION
-    Version 1.4.3 of Alien::Tidyp uses *tidyp* sources v1.04.
+    Version 1.4.4 of Alien::Tidyp uses *tidyp* sources v1.04.
 
 SYNOPSIS
+    IMPORTANT: This module is not a perl binding for *tidyp* library; it is
+    just a helper module. The real perl binding is implemented by e.g
+    HTML::Tidy module, which is able to use Alien::Tidyp to locate *tidyp*
+    library on your system (or build it from source codes).
+
     Alien::Tidyp tries (in given order) during its installation:
 
     *   Locate an already installed *tidyp* + ask user whether to use the
@@ -20,7 +25,8 @@ SYNOPSIS
 
     *   Download *tidyp* source code tarball
 
-    *   Build *tidyp* binaries from source codes
+    *   Build *tidyp* binaries from source codes (only static libraries are
+        build in this case)
 
     *   Install binaries and dev files (*.h, *.a) into *share* directory of
         Alien::Tidyp distribution - *share* directory is usually something
@@ -29,31 +35,36 @@ SYNOPSIS
     Later on you can use Alien::Tidyp in your module that needs to link with
     *tidyp* like this:
 
-        # Sample Makefile.pl
-        use ExtUtils::MakeMaker;
-        use Alien::Tidyp;
+     # Sample Makefile.pl
+     use ExtUtils::MakeMaker;
+     use Alien::Tidyp;
 
-        WriteMakefile(
-          NAME         => 'Any::Tidyp::Module',
-          VERSION_FROM => 'lib/Any/Tidyp/Module.pm',
-          LIBS         => Alien::Tidyp->config('LIBS'),
-          INC          => Alien::Tidyp->config('INC'),
-          # + additional params
-        );
+     WriteMakefile(
+       NAME         => 'Any::Tidyp::Module',
+       VERSION_FROM => 'lib/Any/Tidyp/Module.pm',
+       LIBS         => Alien::Tidyp->config('LIBS'),
+       INC          => Alien::Tidyp->config('INC'),
+       # + additional params
+     );
+
+    IMPORTANT: As Alien::Tidyp builds static libraries the modules using
+    Alien:Tidyp (e.g. HTML::Tidy) need to have Alien::Tidyp just for
+    building, not for later use. In other words Alien:Tidyp is just "build
+    dependency" not "runtime dependency".
 
 METHODS
   config()
     This function is the main public interface to this module.
 
-        Alien::Tidyp->config('LIBS');
+     Alien::Tidyp->config('LIBS');
 
     Returns a string like: '-L/path/to/tidyp/dir/lib -ltidyp'
 
-        Alien::Tidyp->config('INC');
+     Alien::Tidyp->config('INC');
 
     Returns a string like: '-I/path/to/tidyp/dir/include/tidyp'
 
-        Alien::Tidyp->config('PREFIX');
+     Alien::Tidyp->config('PREFIX');
 
     Returns a string like: '/path/to/tidyp/dir' (note: if using the already
     installed tidyp config('PREFIX') returns undef)
