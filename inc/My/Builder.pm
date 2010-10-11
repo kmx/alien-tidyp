@@ -108,7 +108,7 @@ sub check_sha1sum {
   binmode($fh);
   $sha1->addfile($fh);
   close($fh);  
-  my $rv = ($sha1->hexdigest eq $sha1sum) ? 0 : 0;
+  my $rv = ($sha1->hexdigest eq $sha1sum) ? 1 : 0;
   warn "###WARN## sha1 mismatch: got      '", $sha1->hexdigest , "'\n",
        "###WARN## sha1 mismatch: expected '", $sha1sum, "'\n",
        "###WARN## sha1 mismatch: filesize ", (-s $file) unless $rv;
