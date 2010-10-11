@@ -25,7 +25,7 @@ SYNOPSIS
 
     *   Download *tidyp* source code tarball
 
-    *   Build *tidyp* binaries from source codes (only static libraries are
+    *   Build *tidyp* binaries from source codes (note: static libraries are
         build in this case)
 
     *   Install binaries and dev files (*.h, *.a) into *share* directory of
@@ -48,9 +48,9 @@ SYNOPSIS
      );
 
     IMPORTANT: As Alien::Tidyp builds static libraries the modules using
-    Alien:Tidyp (e.g. HTML::Tidy) need to have Alien::Tidyp just for
+    Alien::Tidyp (e.g. HTML::Tidy) need to have Alien::Tidyp just for
     building, not for later use. In other words Alien:Tidyp is just "build
-    dependency" not "runtime dependency".
+    dependency" not "run-time dependency".
 
 METHODS
   config()
