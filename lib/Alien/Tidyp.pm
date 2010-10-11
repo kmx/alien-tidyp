@@ -41,7 +41,7 @@ the following steps
 
 =item * Download I<tidyp> source code tarball
 
-=item * Build I<tidyp> binaries from source codes (only static libraries are build in this case)
+=item * Build I<tidyp> binaries from source codes (note: static libraries are build in this case)
 
 =item * Install binaries and dev files (*.h, *.a) into I<share> directory of Alien::Tidyp
 distribution - I<share> directory is usually something like this: /usr/lib/perl5/site_perl/5.10/auto/share/dist/Alien-Tidyp
@@ -63,9 +63,9 @@ I<tidyp> like this:
    # + additional params
  );
 
-B<IMPORTANT:> As Alien::Tidyp builds static libraries the modules using Alien:Tidyp (e.g. L<HTML::Tidy|HTML::Tidy>)
+B<IMPORTANT:> As Alien::Tidyp builds static libraries the modules using Alien::Tidyp (e.g. L<HTML::Tidy|HTML::Tidy>)
 need to have Alien::Tidyp just for building, not for later use. In other words Alien:Tidyp is just "build dependency"
-not "runtime dependency".
+not "run-time dependency".
 
 =head1 METHODS
 
