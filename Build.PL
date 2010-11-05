@@ -56,7 +56,8 @@ my $builder = $package->new(
       bugtracker => 'http://rt.cpan.org/NoAuth/Bugs.html?Dist=Alien-Tidyp',
       repository => 'http://github.com/kmx/alien-tidyp',
     }
-  }
+  },
+  get_options => { srctarball =>  { type  => '=s' } },  # option: Build.PL --srctarball=<url_or_filename>
 );
 
 $builder->create_build_script();

@@ -1,8 +1,9 @@
 Revision history for Alien-Tidyp
 
-1.4.4	NEXT
+1.4.4	05/11/2010
 	- more error info in case of sha1 checksum failure
 	- cosmetics POD changes
+	- new option: Build.PL --srctarball=<url_or_filename>
 
 1.4.3	25/09/2010
 	- using File::Path legacy functions (works with File::Path <2.0 e.g. RHEL5)

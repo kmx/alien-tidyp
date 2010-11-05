@@ -53,15 +53,26 @@ sub ACTION_code {
       $self->add_to_cleanup($build_src);
 
       # get sources
-      my $url  = $self->notes('tidyp_url');
+      my $tarball = $self->args('srctarball');
       my $dir  = $self->notes('tidyp_dir');
       my $sha1 = $self->notes('tidyp_sha1');
-      $self->fetch_file($url, $sha1, $download);
-      $self->notes('tidyp_src', "$build_src/$dir");
-      my $archive = catfile($download, File::Fetch->new(uri => $url)->file);
+      $self->notes('tidyp_src', "$build_src/$dir");      
+      my $archive;
+      if ($tarball && -f $tarball) {
+        $archive = $tarball;
+      }      
+      else {
+        warn "Downloading from explicit URL: '$tarball'\n" if $tarball;
+        my $url  = $tarball || $self->notes('tidyp_url');
+        $self->fetch_file($url, $sha1, $download);
+        $archive = catfile($download, File::Fetch->new(uri => $url)->file);
+      }
+      print STDERR "Checking checksum '$archive'...\n";
+      die "###ERROR### Checksum failed '$archive'" unless $self->check_sha1sum($archive, $sha1);
       my $ae = Archive::Extract->new( archive => $archive );
-      die "###ERROR###: cannot extract tarball ", $ae->error unless $ae->extract(to => $build_src);
-
+      die "###ERROR### Cannot extract tarball ", $ae->error unless $ae->extract(to => $build_src);
+      die "###ERROR### Cannot find expected dir='",$self->notes('tidyp_src'),"'" unless -d $self->notes('tidyp_src');
+      
       # go for build
       $self->build_binaries($build_out, $self->notes('tidyp_src'));
       # store info about build into future Alien::Tidyp::ConfigData
@@ -91,13 +102,9 @@ sub fetch_file {
   }
   print STDERR "Fetching '$url'...\n";
   my $fullpath = $ff->fetch(to => $download);
-  die "###ERROR### Unable to fetch '$url'" unless $fullpath;
-  if (-e $fn) {
-    print STDERR "Checking checksum for '$fn'...\n";
-    return 1 if $self->check_sha1sum($fn, $sha1sum);
-    die "###ERROR### Checksum failed '$fn'";
-  }
-  die "###ERROR### _fetch_file failed '$fn'";
+  die "###ERROR### Unable to fetch '$url'" unless $fullpath;  
+  die "###ERROR### _fetch_file failed '$fn'" unless -e $fn;
+  return 1
 }
 
 sub check_sha1sum {
@@ -111,7 +118,7 @@ sub check_sha1sum {
   my $rv = ($sha1->hexdigest eq $sha1sum) ? 1 : 0;
   warn "###WARN## sha1 mismatch: got      '", $sha1->hexdigest , "'\n",
        "###WARN## sha1 mismatch: expected '", $sha1sum, "'\n",
-       "###WARN## sha1 mismatch: filesize ", (-s $file) unless $rv;
+       "###WARN## sha1 mismatch: filesize '", (-s $file), "'\n", unless $rv;
   return $rv;
 }
 

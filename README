@@ -52,6 +52,21 @@ SYNOPSIS
     building, not for later use. In other words Alien:Tidyp is just "build
     dependency" not "run-time dependency".
 
+Build.PL options
+  --srctarball=<url_or_filename>
+    This option might come handy if you are not connected to the Internet.
+    You can use it like:
+
+     Build.PL --srctarball=/path/to/file/tidyp-1.04.tar.gz
+
+    or:
+
+     Build.PL --srctarball=http://any.server.com/path/to/tidyp-1.04.tar.gz
+
+    IMPORTANT: The file should always be exactly the same source code
+    tarball as specified in the end of Build.PL - see source code (SHA1
+    checksum of the tarball is checked).
+
 METHODS
   config()
     This function is the main public interface to this module.
