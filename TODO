@@ -1,1 +1,2 @@
 - better tests (compile something more complex)
+- alternate dowload location (too many cpan testers fails to download tarball from github)
