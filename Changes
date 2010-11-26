@@ -1,5 +1,9 @@
 Revision history for Alien-Tidyp
 
+1.4.5	26/11/2010
+	- alternate dowload location (too many cpan testers fail to download tarball from github)
+	- config.guess + config.sub hack (DragonFly BSD failure)
+
 1.4.4	05/11/2010
 	- more error info in case of sha1 checksum failure
 	- cosmetics POD changes

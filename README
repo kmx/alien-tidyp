@@ -3,7 +3,7 @@ NAME
     <http://www.tidyp.com>
 
 VERSION
-    Version 1.4.4 of Alien::Tidyp uses *tidyp* sources v1.04.
+    Version 1.4.5 of Alien::Tidyp uses *tidyp* sources v1.04.
 
 SYNOPSIS
     IMPORTANT: This module is not a perl binding for *tidyp* library; it is

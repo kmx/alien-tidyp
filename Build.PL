@@ -41,6 +41,7 @@ my $builder = $package->new(
     'File::Spec'        => 0,
     'File::Path'        => 0,
     'File::Temp'        => 0,
+    'File::Copy'        => 0,
     'ExtUtils::CBuilder'=> 0,
     'ExtUtils::Command' => 0,
     'ExtUtils::Liblist' => 0,
@@ -71,6 +72,10 @@ if ($builder->check_installed_tidyp()) {
 unlink 'build_done';
 
 # set what tidyp tarball we are gonna use
-$builder->notes('tidyp_url', 'http://github.com/downloads/petdance/tidyp/tidyp-1.04.tar.gz');
+$builder->notes('tidyp_url', [ 
+    'http://github.com/downloads/petdance/tidyp/tidyp-1.04.tar.gz',    
+    'https://github.com/downloads/petdance/tidyp/tidyp-1.04.tar.gz',
+    'http://strawberryperl.com/package/kmx/testing/tidyp-1.04.tar.gz',
+  ]); # has to be an array
 $builder->notes('tidyp_dir', 'tidyp-1.04'); # dirname inside the tarball
 $builder->notes('tidyp_sha1', '5d9050512259c3a67a2f48469555932e3a7b8bd0'); # SHA1 checksum of the tarball

@@ -56,22 +56,34 @@ sub ACTION_code {
       my $tarball = $self->args('srctarball');
       my $dir  = $self->notes('tidyp_dir');
       my $sha1 = $self->notes('tidyp_sha1');
+      my @url = @{$self->notes('tidyp_url')};
       $self->notes('tidyp_src', "$build_src/$dir");      
       my $archive;
       if ($tarball && -f $tarball) {
         $archive = $tarball;
+	$self->check_sha1sum($archive, $sha1) || die "###ERROR### Checksum failed '$archive'";
       }      
-      else {
+      elsif ($tarball && $tarball =~ /^[a-z]+:\/\//) {
         warn "Downloading from explicit URL: '$tarball'\n" if $tarball;
-        my $url  = $tarball || $self->notes('tidyp_url');
-        $self->fetch_file($url, $sha1, $download);
-        $archive = catfile($download, File::Fetch->new(uri => $url)->file);
+	$archive = $self->fetch_file([$tarball], $sha1, $download) || die "###ERROR### Download failed\n";
       }
-      print STDERR "Checking checksum '$archive'...\n";
-      die "###ERROR### Checksum failed '$archive'" unless $self->check_sha1sum($archive, $sha1);
-      my $ae = Archive::Extract->new( archive => $archive );
-      die "###ERROR### Cannot extract tarball ", $ae->error unless $ae->extract(to => $build_src);
-      die "###ERROR### Cannot find expected dir='",$self->notes('tidyp_src'),"'" unless -d $self->notes('tidyp_src');
+      elsif ($tarball) {
+        die "###ERROR### Wrong value of --srctarball option (non existing file or invalid URL)\n";
+      }
+      else {
+        $archive = $self->fetch_file(\@url, $sha1, $download) || die "###ERROR### Download failed\n";
+      }      
+      print STDERR "Checking checksum '$archive'...\n";      
+      
+      #extract source codes
+      my $extract_src = 'y';
+      $extract_src = $self->prompt("Overwrite existing sources? (y/n)", "n") if (-d $self->notes('tidyp_src'));
+      if (lc($extract_src) eq 'y') {
+        my $ae = Archive::Extract->new( archive => $archive );
+        $self->notes('tidyp_src');
+        $ae->extract(to => $build_src) || die "###ERROR### Cannot extract tarball ", $ae->error;
+        die "###ERROR### Cannot find expected dir='",$self->notes('tidyp_src'),"'" unless -d $self->notes('tidyp_src');
+      }
       
       # go for build
       $self->build_binaries($build_out, $self->notes('tidyp_src'));
@@ -90,21 +102,26 @@ sub ACTION_code {
 }
 
 sub fetch_file {
-  my ($self, $url, $sha1sum, $download) = @_;
-  die "###ERROR### _fetch_file undefined url\n" unless $url;
+  my ($self, $url_list, $sha1sum, $download) = @_;
+  die "###ERROR### _fetch_file undefined url\n" unless $url_list;
   die "###ERROR### _fetch_file undefined sha1sum\n" unless $sha1sum;
-  my $ff = File::Fetch->new(uri => $url);
-  my $fn = catfile($download, $ff->file);
-  if (-e $fn) {
-    print STDERR "Checking checksum for already existing '$fn'...\n";
-    return 1 if $self->check_sha1sum($fn, $sha1sum);
-    unlink $fn; #exists but wrong checksum
+  for my $url (@$url_list) {
+    my $ff = File::Fetch->new(uri => $url);
+    my $fn = catfile($download, $ff->file);
+    if (-e $fn) {
+      print STDERR "Checking checksum for already existing '$fn'...\n";
+      return $fn if $self->check_sha1sum($fn, $sha1sum);
+      unlink $fn; #exists but wrong checksum
+    }
+    print STDERR "Fetching '$url' ...\n";
+    my $fullpath = $ff->fetch(to => $download);
+    if ($fullpath && -e $fullpath && $self->check_sha1sum($fullpath, $sha1sum)) {
+      print STDERR "Download OK (filesize=".(-s $fullpath).")\n";
+      return $fullpath;
+    }
+    warn "###WARNING### Unable to fetch '$url'\n";  
   }
-  print STDERR "Fetching '$url'...\n";
-  my $fullpath = $ff->fetch(to => $download);
-  die "###ERROR### Unable to fetch '$url'" unless $fullpath;  
-  die "###ERROR### _fetch_file failed '$fn'" unless -e $fn;
-  return 1
+  return;
 }
 
 sub check_sha1sum {

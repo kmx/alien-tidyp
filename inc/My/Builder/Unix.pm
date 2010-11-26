@@ -13,12 +13,18 @@ sub build_binaries {
   $srcdir ||= 'src';
   my $prefixdir = rel2abs($build_out);
   $self->config_data('build_prefix', $prefixdir); # save it for future ConfigData
+  
+  #hack - use updated config.guess + config.sub - remove when fixed in tidyp distribution
+  require File::Copy;
+  File::Copy::copy("patches/config.sub","$srcdir/config.sub");
+  File::Copy::copy("patches/config.guess","$srcdir/config.guess");
+  #end of hack
 
   chdir $srcdir;
 
   # do './configure ...'
   my $run_configure = 'y';
-  $run_configure = $self->prompt("Run ./configure again?", "n") if (-f "config.status");
+  $run_configure = $self->prompt("Run ./configure again? (y/n)", "n") if (-f "config.status");
   if (lc($run_configure) eq 'y') {
     my @cmd = ( './configure', '--enable-shared=no', '--disable-dependency-tracking', "--prefix=$prefixdir", 'CFLAGS=-fPIC');
     print STDERR "Configuring ...\n";
