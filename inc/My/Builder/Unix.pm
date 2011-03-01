@@ -5,7 +5,7 @@ use warnings;
 use base 'My::Builder';
 
 use File::Spec::Functions qw(catdir catfile rel2abs);
-use File::Spec qw(devnull);
+use File::Spec;
 use Config;
 
 sub build_binaries {

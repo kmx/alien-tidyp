@@ -1,5 +1,8 @@
 Revision history for Alien-Tidyp
 
+1.4.6	NEXT
+	- fix for http://www.cpantesters.org/cpan/report/8446953a-4287-11e0-bace-65d4790d71a6 (devnull)
+
 1.4.5	26/11/2010
 	- alternate dowload location (too many cpan testers fail to download tarball from github)
 	- config.guess + config.sub hack (DragonFly BSD failure)
