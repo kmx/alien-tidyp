@@ -29,7 +29,7 @@ sub build_binaries {
     my @cmd = ( './configure', '--enable-shared=no', '--disable-dependency-tracking', "--prefix=$prefixdir");
     if ($^O eq 'darwin') {
       #this is fix for https://rt.cpan.org/Ticket/Display.html?id=66382
-      push @cmd, "CFLAGS=$Config{ccflags}";
+      push @cmd, "CFLAGS=$Config{ccflags} -fPIC";
       push @cmd, "LDFLAGS=$Config{ldflags}";
     }
     else {
