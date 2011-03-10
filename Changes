@@ -1,16 +1,16 @@
 Revision history for Alien-Tidyp
 
-1.4.6	NEXT
-	- fix for http://www.cpantesters.org/cpan/report/8446953a-4287-11e0-bace-65d4790d71a6 (devnull)
-	- fix for http://rt.cpan.org/Ticket/Display.html?id=66382
+1.4.6	10/03/2011
+	- fixed http://www.cpantesters.org/cpan/report/8446953a-4287-11e0-bace-65d4790d71a6 (devnull)
+	- fixed http://rt.cpan.org/Ticket/Display.html?id=66382 (MacOSX 10.6.6 failure)
 
 1.4.5	26/11/2010
-	- alternate dowload location (too many cpan testers fail to download tarball from github)
+	- alternative dowload location (too many cpan testers fail to download tarball from github)
 	- config.guess + config.sub hack (DragonFly BSD failure)
 
 1.4.4	05/11/2010
 	- more error info in case of sha1 checksum failure
-	- cosmetics POD changes
+	- cosmetic POD changes
 	- new option: Build.PL --srctarball=<url_or_filename>
 
 1.4.3	25/09/2010
