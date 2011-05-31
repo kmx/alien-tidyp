@@ -18,7 +18,10 @@ sub build_binaries {
   my $make = $self->get_make;
   print STDERR "Gonna call make install ...\n";
   my @cmd;
-  if($make =~ /nmake/ && $Config{make} =~ /nmake/ && $Config{cc} =~ /cl/) { # MSVC compiler
+  if($Config{cc} =~ /cl/) { # MSVC compiler
+    #we need nmake for MSVC build
+    $make = $Config{make} if $make !~ /nmake/i && $Config{make} =~ /nmake/i;
+    $make = 'nmake' if $make !~ /nmake/i;
     my $makefile = rel2abs('patches\Makefile.nmake');
     if ($Config{archname} =~ /x64/) { #64bit
       @cmd = ( $make, '-f', $makefile, "PERL=perl", "PREFIX=$prefixdir", "CFG=Win64", "install" );

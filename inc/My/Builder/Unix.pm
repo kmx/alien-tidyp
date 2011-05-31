@@ -35,6 +35,16 @@ sub build_binaries {
     else {
       #FIXME maybe use %Config values for all UNIX systems (not now, maybe in the future)
       push @cmd, 'CFLAGS=-fPIC';
+    }    
+    #On solaris, some tools like 'ar' are not in the default PATH, but in /usr/???/bin
+    #see failure http://www.cpantesters.org/cpan/report/138b45f2-4b6f-11e0-afaf-8138785ebe45
+    if ($^O eq 'solaris' && system('arx -V') < 0) {    
+      for (qw[/usr/ccs/bin /usr/xpg4/bin /usr/sfw/bin /usr/xpg6/bin /usr/gnu/bin /opt/gnu/bin /usr/bin]) {
+        if (-x "$_/ar") {
+          push @cmd, "AR=$_/ar";
+          last;
+        }
+      }
     }
     print STDERR "Configuring ...\n";
     print STDERR "(cmd: ".join(' ',@cmd).")\n";

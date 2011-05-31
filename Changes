@@ -1,5 +1,9 @@
 Revision history for Alien-Tidyp
 
+1.4.7	31/05/2011
+	- fixed http://www.cpantesters.org/cpan/report/b74b5c2c-6fa9-1014-aa8f-4b9555dfede8 (force nmake for MSVC build)
+	- fixed http://www.cpantesters.org/cpan/report/138b45f2-4b6f-11e0-afaf-8138785ebe45 (ar not in PATH on solaris)
+
 1.4.6	10/03/2011
 	- fixed http://www.cpantesters.org/cpan/report/8446953a-4287-11e0-bace-65d4790d71a6 (devnull)
 	- fixed http://rt.cpan.org/Ticket/Display.html?id=66382 (MacOSX 10.6.6 failure)
