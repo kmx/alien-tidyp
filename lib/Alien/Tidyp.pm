@@ -169,7 +169,7 @@ sub config
   my $subdir = Alien::Tidyp::ConfigData->config('share_subdir');
   unless ($subdir) {
     #we are using tidyp already installed on your system not compiled by Alien::Tidyp
-    #therefore no additinal magic needed
+    #therefore no additional magic needed
     return Alien::Tidyp::ConfigData->config('config')->{$param};
   }
   my $share_dir = dist_dir('Alien-Tidyp');
